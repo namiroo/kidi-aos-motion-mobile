@@ -6,6 +6,11 @@
 
 **https://namiroo.github.io/kidi-aos-motion-mobile/**
 
+| 페이지 | 링크 | 내용 |
+|---|---|---|
+| 모바일 화면 | https://namiroo.github.io/kidi-aos-motion-mobile/ | 6개 화면을 실제 앱처럼 폰에서 확인 |
+| 모션 프리뷰 | https://namiroo.github.io/kidi-aos-motion-mobile/preview.html | 모션 아이콘 6종 확인 — 재생 속도(1× · 0.5× · 0.25×) · 키프레임만 보기 · 화면 적용 · 타이밍 표 |
+
 - 로그인 없이 누구나 열 수 있습니다. 링크를 아는 사람만 접근하도록 검색 노출은 막아 두었습니다(`noindex`).
 - **폰** — 실제 앱처럼 화면 전체를 씁니다. 헤더는 위, 버튼은 아래에 고정되고 가운데 본문만 필요할 때 스크롤됩니다. 좌우로 밀어 다른 화면으로 이동하고, 화면을 탭하면 현재 위치(점·화면 ID)가 잠깐 표시됩니다.
 - **PC** — 폰 크기 프레임 안에 표시되고, 아래 화살표 버튼이나 키보드 ← → 로 이동합니다.
@@ -28,6 +33,7 @@
 
 ```
 index.html            화면 마크업·스타일·재생 로직 (화면 문구는 SCREENS 배열)
+preview.html          모션 프리뷰 (이미지 내장 단일 파일, 원본: 02. 디자인/motion/preview.html)
 img/*-sprite.webp     모션 스프라이트 시트
 robots.txt            검색 노출 차단
 ```
