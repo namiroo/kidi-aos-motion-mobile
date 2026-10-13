@@ -33,7 +33,7 @@
 
 ```
 index.html            화면 마크업·스타일·재생 로직 (화면 문구는 SCREENS 배열)
-preview.html          모션 프리뷰 (이미지 내장 단일 파일, 원본: 02. 디자인/motion/preview.html)
+preview.html          모션 프리뷰 (이미지 내장 단일 파일, 원본: 02. 디자인/motion/preview/preview.html)
 img/*-sprite.webp     모션 스프라이트 시트
 robots.txt            검색 노출 차단
 ```
