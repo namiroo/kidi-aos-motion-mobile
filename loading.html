@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex, nofollow">
+<title>로딩 애니메이션 · 접수조회</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  /* AOS 토큰 (Figma 🎨 모바일 AOS) */
+  :root{--ink:#1a1b20;--sub:#6b7284;--muted:#b0b5c1;--line:#dbe0e5;--bg:#f2f3f6;--blue:#0d61bf;--white:#fff;--header-h:56px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overscroll-behavior:none}
+  body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;color:var(--ink);background:#e9ebef;
+    -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;word-break:keep-all}
+  button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+  /* 앱 화면 — 모바일은 꽉 차게, PC 는 폰 크기 */
+  .app{position:relative;margin:0 auto;width:100%;max-width:430px;height:100vh;height:var(--app-h,100dvh);background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+  @media (min-width:600px){body{display:grid;place-items:center;min-height:100vh}.app{height:min(844px,calc(100vh - 40px));border-radius:28px;box-shadow:0 0 0 1px #dfe2e8,0 12px 40px rgba(26,27,32,.12)}}
+
+  /* 헤더 (nav/AppBar/Fullscreen) */
+  .head{flex:none;background:var(--white);padding-top:env(safe-area-inset-top)}
+  .head .bar{height:var(--header-h);display:flex;align-items:center;padding:0 8px 0 16px}
+  .head h1{flex:1;font-size:18px;line-height:26px;font-weight:600}
+  .icon-btn{width:44px;height:44px;display:grid;place-items:center}
+  .icon-btn svg{width:24px;height:24px}
+
+  /* 검색 폼 */
+  .search{flex:none;background:var(--white);padding:16px;display:grid;gap:8px;border-radius:0 0 20px 20px}
+  .range{display:flex;align-items:center;gap:8px}
+  .field{flex:1;height:48px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 16px;font-size:15px;line-height:22px;background:var(--white)}
+  .range .tilde{width:8px;text-align:center;color:var(--muted);font-size:15px}
+  .actions{display:flex;align-items:center;justify-content:space-between}
+  .more{display:flex;align-items:center;gap:4px;color:var(--blue);font-size:14px;font-weight:500;line-height:20px;height:44px;padding-left:4px}
+  .btn-search{width:100px;height:44px;border-radius:8px;background:var(--blue);color:#fff;font-size:15px;font-weight:500}
+  .btn-search:active{filter:brightness(.92)}
+
+  /* 목록 */
+  .main{scrollbar-width:none}.main::-webkit-scrollbar{display:none}
+  .main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px calc(96px + env(safe-area-inset-bottom))}
+  .count{font-size:15px;line-height:22px;margin-bottom:12px}
+  .count b{color:var(--blue);font-weight:600}
+  .cards{display:grid;gap:12px;list-style:none}
+  .card{background:var(--white);border-radius:12px;padding:20px 16px;display:grid;gap:8px}
+  .card .top{display:flex;align-items:center;gap:8px}
+  .sym{width:24px;height:24px;border-radius:50%;background:#e83e29;color:#fff;font-size:6.5px;font-weight:700;display:grid;place-items:center;letter-spacing:-.02em;flex:none}
+  .card .name{flex:1;font-size:16px;line-height:24px;font-weight:600}
+  .card .no,.card .date{font-size:13px;line-height:18px}
+  .card .date{color:var(--sub);padding-left:8px;border-left:1px solid var(--line)}
+  .card .info{display:flex;align-items:center;gap:8px;font-size:15px;line-height:22px}
+  .card .info span:first-child{color:var(--sub);font-size:14px}
+  .card .info svg{margin-left:auto;width:16px;height:16px;color:var(--sub)}
+  .fab{position:absolute;right:16px;bottom:calc(86px + env(safe-area-inset-bottom));width:50px;height:50px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(13,97,191,.35)}
+  .fab svg{width:24px;height:24px}
+
+  /* ── 로딩 오버레이 — 애니메이션은 배경 투명. 화면 위에 반투명 막을 깔고 그 위에 띄운다 ── */
+  .loading{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    background:rgba(242,243,246,.86);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .24s ease}
+  .loading.on{opacity:1;pointer-events:auto}
+  .loading img{display:block}
+  .loading[data-variant="logo"] img{width:140px;height:140px}
+  .loading[data-variant="mark"] img{width:96px;height:96px}
+  .loading p{font-size:15px;line-height:22px;font-weight:500;color:var(--sub)}
+  .loading[data-variant="mark"] p{margin-top:8px}
+
+  /* ── 데모 컨트롤 (시안 확인용) ── */
+  .demo{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:flex;align-items:center;gap:8px;
+    padding:6px;border-radius:14px;background:rgba(26,27,32,.86);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .seg{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .seg button{height:40px;border-radius:10px;font-size:13px;font-weight:500;color:rgba(255,255,255,.7)}
+  .seg button.on{background:#fff;color:var(--ink)}
+  .replay{height:40px;padding:0 14px;border-radius:10px;background:var(--blue);font-size:13px;font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="head">
+    <div class="bar">
+      <h1>접수조회</h1>
+      <button class="icon-btn" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1b20" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </header>
+
+  <section class="search" aria-label="검색 조건">
+    <div class="range">
+      <span class="field">2026.08.08 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1b20" stroke-width="1.5"><rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8.5 3.5v3M15.5 3.5v3"/></svg></span>
+      <span class="tilde">~</span>
+      <span class="field">2026.08.08 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1b20" stroke-width="1.5"><rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8.5 3.5v3M15.5 3.5v3"/></svg></span>
+    </div>
+    <div class="actions">
+      <button class="more">검색 조건 더보기 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></button>
+      <button class="btn-search" id="search">검색</button>
+    </div>
+  </section>
+
+  <main class="main" id="main" aria-live="polite">
+    <p class="count">총 <b>26</b>건</p>
+    <ul class="cards" id="cards"></ul>
+  </main>
+
+  <button class="fab" aria-label="접수 등록"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+
+  <!-- 로딩 오버레이 -->
+  <div class="loading" id="loading" data-variant="mark" role="status" aria-live="polite">
+    <img id="loadingImg" src="img/loading/loading-mark-animated.svg" alt="">
+    <p>잠시만 기다려 주세요</p>
+  </div>
+
+  <!-- 데모 컨트롤 -->
+  <nav class="demo" aria-label="로딩 애니메이션 비교">
+    <div class="seg" role="tablist">
+      <button data-v="mark" class="on" role="tab" aria-selected="true">심볼만</button>
+      <button data-v="logo" role="tab" aria-selected="false">로고 + AOS</button>
+    </div>
+    <button class="replay" id="replay">다시 보기</button>
+  </nav>
+</div>
+
+<script>
+// 카드 목록
+const cards = document.getElementById('cards');
+cards.innerHTML = Array.from({length:6}, () => `
+  <li class="card">
+    <div class="top"><span class="sym" aria-hidden="true">meritz</span><span class="name">메리츠</span><span class="no">20235480261</span><span class="date">09.03</span></div>
+    <div class="info"><span>차량정보 :</span><span>11가4564, 싼타페(SANT)</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg></div>
+  </li>`).join('');
+
+// 로딩 표시 — 애니메이션 한 사이클(2.4s) × 2 를 보여 준다
+const CYCLE = 2400, SHOW = CYCLE * 2;
+const loading = document.getElementById('loading'), img = document.getElementById('loadingImg'), main = document.getElementById('main');
+let variant = 'mark', timer;
+function show(){
+  clearTimeout(timer);
+  // SVG 를 다시 붙여 애니메이션을 처음부터 재생
+  img.src = `img/loading/loading-${variant}-animated.svg?t=${Date.now()}`;
+  loading.dataset.variant = variant;
+  loading.classList.add('on'); main.setAttribute('aria-busy','true');
+  timer = setTimeout(() => { loading.classList.remove('on'); main.setAttribute('aria-busy','false'); main.scrollTop = 0; }, SHOW);
+}
+document.getElementById('search').onclick = show;
+document.getElementById('replay').onclick = show;
+document.querySelectorAll('.seg button').forEach(b => b.onclick = () => {
+  variant = b.dataset.v;
+  document.querySelectorAll('.seg button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
+  show();
+});
+
+// 브라우저 주소창·툴바를 뺀 실제 높이
+function fit(){ const vv = window.visualViewport; document.documentElement.style.setProperty('--app-h', (vv ? vv.height : innerHeight) + 'px'); }
+addEventListener('resize', fit); if (window.visualViewport) visualViewport.addEventListener('resize', fit); fit();
+show();
+</script>
+</body>
+</html>

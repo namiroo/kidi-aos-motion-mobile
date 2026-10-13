@@ -9,6 +9,7 @@
 | 페이지 | 링크 | 내용 |
 |---|---|---|
 | 모바일 화면 | https://namiroo.github.io/kidi-aos-motion-mobile/ | 6개 화면을 실제 앱처럼 폰에서 확인 |
+| 로딩 애니메이션 | https://namiroo.github.io/kidi-aos-motion-mobile/loading.html | 접수조회 화면 위에 로딩 로고 재생 — 심볼만 / 로고+AOS 전환, 검색·다시 보기로 재생 |
 | 모션 프리뷰 | https://namiroo.github.io/kidi-aos-motion-mobile/preview.html | 모션 아이콘 6종 확인 — 재생 속도(1× · 0.5× · 0.25×) · 키프레임만 보기 · 화면 적용 · 타이밍 표 |
 
 - 로그인 없이 누구나 열 수 있습니다. 링크를 아는 사람만 접근하도록 검색 노출은 막아 두었습니다(`noindex`).
@@ -35,6 +36,8 @@
 index.html            화면 마크업·스타일·재생 로직 (화면 문구는 SCREENS 배열)
 preview.html          모션 프리뷰 (이미지 내장 단일 파일, 원본: 02. 디자인/motion/preview/preview.html)
 img/*-sprite.webp     모션 스프라이트 시트
+loading.html          로딩 애니메이션 화면 적용 데모 (접수조회)
+img/loading/*.svg     로딩 로고 애니메이션 (배경 투명, 생성: 04.바이브코딩/kidi_aos_mobile_260903/_build_loading.py)
 robots.txt            검색 노출 차단
 ```
 
