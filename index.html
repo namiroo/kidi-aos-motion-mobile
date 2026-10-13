@@ -9,116 +9,143 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  :root{--ink:#1a1b20;--sub:#6b7284;--line:#e3e4e9;--bg:#f2f3f6;--brand:#0d61bf;--top:56px;--bottom:76px}
-  *{box-sizing:border-box;margin:0}
-  html,body{height:100%;background:var(--bg);color:var(--ink);overscroll-behavior:none}
-  body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
-    -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;display:flex;flex-direction:column;height:100vh;height:var(--app-h,100dvh);overflow:hidden}
-  header{height:calc(var(--top) + env(safe-area-inset-top));padding:env(safe-area-inset-top) 16px 0;display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid var(--line);flex:none}
-  header h1{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  header .id{font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
-  header .count{margin-left:auto;font-size:13px;color:var(--sub);font-variant-numeric:tabular-nums;flex:none}
-  .track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .track::-webkit-scrollbar{display:none}
-  .slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:12px 16px}
-  .phone{position:relative;height:100%;max-width:100%;aspect-ratio:360/780;border-radius:20px;overflow:hidden;background:#fff center/100% 100% no-repeat;
-    box-shadow:0 0 0 1px var(--line),0 8px 28px rgba(26,27,32,.08)}
-  .phone i{position:absolute;display:block;aspect-ratio:1;background-repeat:no-repeat}
-  footer{height:calc(var(--bottom) + env(safe-area-inset-bottom));padding:0 16px env(safe-area-inset-bottom);display:flex;align-items:center;gap:12px;background:#fff;border-top:1px solid var(--line);flex:none}
-  .dots{flex:1;display:flex;justify-content:center;gap:8px}
-  .dot{width:8px;height:8px;border-radius:50%;background:#d0d3db;border:0;padding:0;cursor:pointer}
-  .dot.on{background:var(--brand);width:20px;border-radius:4px}
-  .btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent}
-  .btn:disabled{opacity:.35}
-  .btn svg{width:22px;height:22px}
-  .btn.play{background:var(--brand);border-color:var(--brand);color:#fff}
-  .label{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:12px;color:#fff;background:rgba(26,27,32,.72);padding:4px 10px;border-radius:999px;white-space:nowrap;pointer-events:none}
-  .hint{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(26,27,32,.78);color:#fff;font-size:13px;padding:10px 14px;border-radius:10px;pointer-events:none;transition:opacity .4s;z-index:10;white-space:nowrap}
-  @media (max-width:600px){
-    header,footer{position:fixed;left:0;right:0;z-index:5;transition:opacity .25s,transform .25s;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-    header{top:0} footer{bottom:0}
-    body.hide header{opacity:0;transform:translateY(-100%);pointer-events:none}
-    body.hide footer{opacity:0;transform:translateY(100%);pointer-events:none}
-    .slide{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);background:#fff}
-    .phone{height:auto;max-width:none;border-radius:0;box-shadow:none}
+  /* ── AOS 디자인 토큰 (Figma 🎨 모바일 AOS) ── */
+  :root{
+    --gray-1000:#1a1b20; --gray-600:#6b7284; --gray-50:#f7f8fa; --line:#e3e4e9;
+    --blue-500:#0d61bf; --blue-50:#ecf4fd; --white:#fff;
+    --header-h:56px; --btn-h:48px;
+    --viewer-bg:#eef0f4;
   }
-  @media (min-width:601px){.hint{display:none}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overscroll-behavior:none}
+  body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+    color:var(--gray-1000);background:var(--white);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
+    height:100vh;height:var(--app-h,100dvh);overflow:hidden;word-break:keep-all}
+  button{font:inherit;border:0;background:none;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+  /* ── 슬라이드 트랙 ── */
+  .track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .track::-webkit-scrollbar{display:none}
+  .slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;justify-content:center}
+
+  /* ── 앱 화면: 헤더 상단 고정 · 본문 스크롤 · 푸터 하단 고정 ── */
+  .app{position:relative;width:100%;height:100%;display:flex;flex-direction:column;background:var(--white);overflow:hidden}
+  .app-header{flex:none;padding-top:env(safe-area-inset-top);background:var(--white)}
+  .app-header .bar{height:var(--header-h);display:flex;align-items:center;justify-content:center;padding:0 8px}
+  .app-header h1{font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-0.0002em}
+  .app-header.empty .bar{height:0}
+  .app-main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column}
+  .app-main{scrollbar-width:none}.app-main::-webkit-scrollbar{display:none}
+  .nw{white-space:nowrap}
+  .app-main .inner{margin:auto 0;padding:32px 24px 40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .illust{width:180px;height:180px;flex:none;background-repeat:no-repeat}
+  .msg{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:12px;width:100%;max-width:312px}
+  .msg h2{font-size:20px;font-weight:600;line-height:1.4;letter-spacing:-0.012em}
+  .msg p{font-size:15px;line-height:1.47;letter-spacing:0.0096em;color:var(--gray-600)}
+  .msg p.accent{color:var(--blue-500)}
+  .summary{width:100%;background:var(--gray-50);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;text-align:left}
+  .summary .row{display:flex;flex-direction:column;gap:4px}
+  .summary dt,.summary dd{font-size:14px;line-height:1.43;letter-spacing:0.0145em}
+  .summary dt{color:var(--gray-600)}
+  .summary hr{border:0;height:1px;background:var(--line)}
+  .app-footer{flex:none;background:var(--white);padding:14px 16px calc(20px + env(safe-area-inset-bottom));display:flex;gap:8px}
+  .btn{flex:1;min-width:0;height:var(--btn-h);border-radius:8px;padding:0 20px;font-size:16px;font-weight:500;line-height:1.5;letter-spacing:0.0057em;
+    display:flex;align-items:center;justify-content:center;white-space:nowrap}
+  .btn.primary{background:var(--blue-500);color:var(--white)}
+  .btn.secondary{background:var(--blue-50);color:var(--blue-500)}
+  .btn:active{filter:brightness(.94)}
+
+  /* ── 뷰어 보조 UI (모바일: 잠깐 떴다 사라지는 점 표시) ── */
+  .pager{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(98px + env(safe-area-inset-bottom));z-index:5;
+    display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(26,27,32,.62);
+    transition:opacity .3s;pointer-events:auto}
+  .pager.hide{opacity:0;pointer-events:none}
+  .pager .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}
+  .pager .dot.on{background:#fff;width:16px;border-radius:3px}
+  .pager .lbl{color:#fff;font-size:11px;margin-left:4px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .hint{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);z-index:6;background:rgba(26,27,32,.78);color:#fff;
+    font-size:13px;padding:10px 14px;border-radius:10px;pointer-events:none;transition:opacity .4s;white-space:nowrap}
+  .desk{display:none}
+
+  /* ── 데스크톱: 폰 크기 프레임 + 바깥 컨트롤 ── */
+  @media (min-width:601px){
+    body{background:var(--viewer-bg)}
+    .track{height:calc(100% - 72px)}
+    .slide{align-items:center;padding:20px}
+    .app{width:390px;height:min(844px,100%);border-radius:28px;box-shadow:0 0 0 1px var(--line),0 12px 40px rgba(26,27,32,.10)}
+    .app-header{padding-top:0}
+    .app-footer{padding-bottom:20px}
+    .pager,.hint{display:none}
+    .desk{display:flex;position:fixed;left:0;right:0;bottom:0;height:72px;align-items:center;justify-content:center;gap:14px}
+    .desk .cbtn{width:40px;height:40px;border-radius:10px;background:#fff;box-shadow:0 0 0 1px var(--line);display:grid;place-items:center}
+    .desk .cbtn:disabled{opacity:.35;cursor:default}
+    .desk .cbtn svg{width:20px;height:20px}
+    .desk .info{min-width:220px;text-align:center;font-size:13px;color:var(--gray-600)}
+    .desk .info b{color:var(--gray-1000);font-weight:600;margin-right:6px}
+  }
 </style>
 </head>
 <body>
-<header>
-  <h1 id="title"></h1><span class="id" id="sid"></span>
-  <span class="count" id="count"></span>
-</header>
-<div class="track" id="track"></div>
-<div class="hint" id="hint">좌우로 밀어 화면 이동 · 탭하면 메뉴</div>
-<footer>
-  <button class="btn" id="prev" aria-label="이전 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-  <div class="dots" id="dots"></div>
-  <button class="btn play" id="toggle" aria-label="일시정지"><svg viewBox="0 0 24 24" fill="currentColor" id="ticon"><rect x="7" y="5" width="3.2" height="14" rx="1"/><rect x="13.8" y="5" width="3.2" height="14" rx="1"/></svg></button>
-  <button class="btn" id="next" aria-label="다음 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-</footer>
+<main class="track" id="track"></main>
+<div class="pager hide" id="pager"></div>
+<div class="hint" id="hint">좌우로 밀어서 다른 화면 보기</div>
+<nav class="desk" aria-label="화면 이동">
+  <button class="cbtn" id="prev" aria-label="이전 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <div class="info" id="info"></div>
+  <button class="cbtn" id="next" aria-label="다음 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</nav>
 <script>
-const DATA = {"icons": [{"id": "hourglass", "nameKo": "모래", "description": "인증 대기 — 모래시계가 뒤집히며 흐르는 대기 상태", "usedOn": ["UI_CM_05_014"], "spec": "icons/hourglass.json", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/hourglass-sprite.webp"}, "screen": {"left": 25.0, "top": 25.64102564102564, "size": 50.0, "src": "img/hourglass-screen.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"id": "search-fail", "nameKo": "조회실패", "description": "조회 결과 없음 — 돋보기가 흔들리는 실패 상태", "usedOn": ["UI_CM_05_015"], "spec": "icons/search-fail.json", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/search-fail-sprite.webp"}, "screen": {"left": 25.0, "top": 25.64102564102564, "size": 50.0, "src": "img/search-fail-screen.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"id": "lock", "nameKo": "잠금", "description": "계정 잠김 — 자물쇠가 떨어져 튀고 고리가 잠기는 동작", "usedOn": ["UI_CM_02_009"], "spec": "icons/lock.json", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/lock-sprite.webp"}, "screen": {"left": 25.0, "top": 25.64102564102564, "size": 50.0, "src": "img/lock-screen.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"id": "account", "nameKo": "계정", "description": "휴면 계정 — 계정 오브가 떠올랐다 내려앉는 부유 루프", "usedOn": ["UI_CM_02_014"], "spec": "icons/account.json", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/account-sprite.webp"}, "screen": {"left": 25.0, "top": 25.64102564102564, "size": 50.0, "src": "img/account-screen.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"id": "retry", "nameKo": "재시도", "description": "재시도 — 반동 후 튕겨 돌고 살짝 지나쳤다 안착하는 회전", "usedOn": ["UI_CM_02_015"], "spec": "icons/retry.json", "sprite": {"columns": 10, "rows": 6, "frameCount": 60, "src": "img/retry-sprite.webp"}, "screen": {"left": 25.0, "top": 25.64102564102564, "size": 50.0, "src": "img/retry-screen.webp"}, "timing": {"stepCount": 12, "delayMs": 1, "transitionMs": null, "transitionMsPerStep": [200, 200, 200, 200, 140, 140, 140, 140, 140, 140, 140, 140], "easing": "linear", "stepTotalMs": null, "loopDurationMs": 1920, "loop": true, "framesPerStep": 5, "frameDurationsMs": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20], "continuous": true, "rotationDegPerStep": [0, 0, 0, 0, 22, -62, -100, -100, -70, -40, -22, 12], "note": "반동(+22°) → 가속(-100°) → 감속 → 오버슛(-372°) → 안착(-360°). 낙하 200ms, 회전 140ms/스텝. GIF 저장 단위(10ms)에 맞춰 회전 구간은 30/30/30/30/20ms 로 나눕니다."}}, {"id": "complete", "nameKo": "완료", "description": "완료 — 체크가 튀어오르는 바운스", "usedOn": ["UI_CM_03_006"], "spec": "icons/complete.json", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/complete-sprite.webp"}, "screen": {"left": 25.0, "top": 20.897435897435898, "size": 50.0, "src": "img/complete-screen.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}]};
-const track=document.getElementById('track'), dots=document.getElementById('dots');
-const players=[]; let playing=true, cur=0;
+const SCREENS = [{"icon": "hourglass", "id": "UI_CM_05_014", "header": "본인인증", "title": "PASS에서 인증 진행", "desc": "자동으로 실행되지 않으면<br>아래 버튼을 눌러주세요", "extra": "남은 시간 : 02:47", "buttons": [["secondary", "본인인증"], ["primary", "인증완료"]], "nameKo": "모래", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/hourglass-sprite.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"icon": "search-fail", "id": "UI_CM_05_015", "header": "본인인증", "title": "본인확인이 실패", "desc": "인증 시간이 초과되었거 정보가 일치하지 않아요", "buttons": [["primary", "다시 시도"]], "nameKo": "조회실패", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/search-fail-sprite.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"icon": "lock", "id": "UI_CM_02_009", "title": "간편로그인 잠김", "desc": "5회 연속 로그인이 실패하여 본인확인 필요", "buttons": [["primary", "로그인 페이지로 이동"]], "nameKo": "잠금", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/lock-sprite.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"icon": "account", "id": "UI_CM_02_014", "title": "계정이 휴면 상태입니다.", "desc": "장기간 미접속으로 계정이 휴면 처리되었습니다,<br>본인인증 후 비밀번호를 변경하시면<br>휴면을 해제할 수 있습니다.", "buttons": [["primary", "본인인증"]], "nameKo": "계정", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/account-sprite.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}, {"icon": "retry", "id": "UI_CM_02_015", "title": "비밀번호를 변경해주세요", "desc": "마지막 비밀번호 변경일로부터 90일이<br>경과했습니다. 보안을 위해 변경해주세요.", "buttons": [["primary", "비밀번호 변경하기"]], "nameKo": "재시도", "sprite": {"columns": 10, "rows": 6, "frameCount": 60, "src": "img/retry-sprite.webp"}, "timing": {"stepCount": 12, "delayMs": 1, "transitionMs": null, "transitionMsPerStep": [200, 200, 200, 200, 140, 140, 140, 140, 140, 140, 140, 140], "easing": "linear", "stepTotalMs": null, "loopDurationMs": 1920, "loop": true, "framesPerStep": 5, "frameDurationsMs": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20, 30, 30, 30, 30, 20], "continuous": true, "rotationDegPerStep": [0, 0, 0, 0, 22, -62, -100, -100, -70, -40, -22, 12], "note": "반동(+22°) → 가속(-100°) → 감속 → 오버슛(-372°) → 안착(-360°). 낙하 200ms, 회전 140ms/스텝. GIF 저장 단위(10ms)에 맞춰 회전 구간은 30/30/30/30/20ms 로 나눕니다."}}, {"icon": "complete", "id": "UI_CM_03_006", "title": "회원가입신청이<br>정상적으로 접수되었습니다.", "summary": [["신규등록 메시지", "보상직원 담당자가 신청내역을 확인 후 승인 처리해 드립니다. <span class=\"nw\">(Tel: 031-644-1616)</span>"], ["추가등록 메시지", "AOS 담당자가 신청내역을 확인 후 승인 처리해 드립니다."]], "buttons": [["primary", "홈으로 이동"]], "nameKo": "완료", "sprite": {"columns": 8, "rows": 6, "frameCount": 48, "src": "img/complete-sprite.webp"}, "timing": {"stepCount": 12, "delayMs": 120, "transitionMs": 120, "easing": "linear", "stepTotalMs": 240, "loopDurationMs": 2880, "loop": true, "framesPerStep": 4, "frameDurationsMs": [150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30, 150, 30, 30, 30], "continuous": false}}];
+const track=document.getElementById('track'), pager=document.getElementById('pager');
+let cur=0;
 function bgPos(S,i){const c=i%S.columns,r=Math.floor(i/S.columns);
   return (S.columns>1?c/(S.columns-1)*100:0)+'% '+(S.rows>1?r/(S.rows-1)*100:0)+'%';}
-DATA.icons.forEach((ic,k)=>{
-  const S=ic.sprite, sc=ic.screen;
-  const slide=document.createElement('section'); slide.className='slide';
-  slide.innerHTML='<div class="phone" role="img" aria-label="'+ic.usedOn[0]+' '+ic.nameKo+' 화면"><i></i></div>';
-  const phone=slide.querySelector('.phone'), ico=slide.querySelector('i');
-  phone.style.backgroundImage='url("'+sc.src+'")';
-  Object.assign(ico.style,{left:sc.left+'%',top:sc.top+'%',width:sc.size+'%',
-    backgroundImage:'url("'+S.src+'")',backgroundSize:(S.columns*100)+'% '+(S.rows*100)+'%'});
+const players=[];
+SCREENS.forEach((sc,k)=>{
+  const slide=document.createElement('section'); slide.className='slide'; slide.setAttribute('aria-label',sc.id+' '+sc.nameKo);
+  let body='<div class="illust" role="img" aria-label="'+sc.nameKo+' 모션"></div><div class="msg"><h2>'+sc.title+'</h2>';
+  if(sc.desc) body+='<p>'+sc.desc+'</p>';
+  if(sc.extra) body+='<p class="accent">'+sc.extra+'</p>';
+  if(sc.summary) body+='<dl class="summary">'+sc.summary.map(r=>'<div class="row"><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>').join('<hr>')+'</dl>';
+  body+='</div>';
+  slide.innerHTML='<div class="app">'+
+    '<header class="app-header'+(sc.header?'':' empty')+'"><div class="bar">'+(sc.header?'<h1>'+sc.header+'</h1>':'')+'</div></header>'+
+    '<div class="app-main"><div class="inner">'+body+'</div></div>'+
+    '<footer class="app-footer">'+sc.buttons.map(b=>'<button class="btn '+b[0]+'" type="button">'+b[1]+'</button>').join('')+'</footer></div>';
   track.appendChild(slide);
-  const d=document.createElement('button'); d.className='dot'; d.setAttribute('aria-label',(k+1)+'번 화면');
-  d.onclick=()=>go(k); dots.appendChild(d);
-  players.push({S,T:ic.timing,el:ico,i:0,timer:null});
+  const il=slide.querySelector('.illust'), S=sc.sprite;
+  il.style.backgroundImage='url("'+S.src+'")'; il.style.backgroundSize=(S.columns*100)+'% '+(S.rows*100)+'%';
+  players.push({S,T:sc.timing,el:il,i:0});
+  const d=document.createElement('span'); d.className='dot'; pager.appendChild(d);
 });
+const lbl=document.createElement('span'); lbl.className='lbl'; pager.appendChild(lbl);
 function tick(p){p.el.style.backgroundPosition=bgPos(p.S,p.i);
-  p.timer=setTimeout(()=>{p.i=(p.i+1)%p.S.frameCount; if(playing) tick(p);},p.T.frameDurationsMs[p.i]);}
-function startAll(){players.forEach(p=>{clearTimeout(p.timer);tick(p);});}
-function stopAll(){players.forEach(p=>clearTimeout(p.timer));}
-function render(){const ic=DATA.icons[cur];
-  document.getElementById('title').textContent=ic.nameKo+' · '+ic.description.split(' — ')[0];
-  document.getElementById('sid').textContent=ic.usedOn[0];
-  document.getElementById('count').textContent=(cur+1)+' / '+DATA.icons.length;
-  [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===cur));
+  setTimeout(()=>{p.i=(p.i+1)%p.S.frameCount; tick(p);},p.T.frameDurationsMs[p.i]);}
+players.forEach(tick);
+
+let pagerT;
+function render(){
+  const sc=SCREENS[cur];
+  [...pager.querySelectorAll('.dot')].forEach((d,i)=>d.classList.toggle('on',i===cur));
+  lbl.textContent=sc.id;
+  document.getElementById('info').innerHTML='<b>'+(cur+1)+' / '+SCREENS.length+'</b>'+sc.id+' · '+sc.nameKo;
   document.getElementById('prev').disabled=cur===0;
-  document.getElementById('next').disabled=cur===DATA.icons.length-1;}
-function go(k){track.scrollTo({left:k*track.clientWidth,behavior:'smooth'});}
-track.addEventListener('scroll',()=>{const k=Math.round(track.scrollLeft/track.clientWidth); if(k!==cur){cur=k;render();}},{passive:true});
-document.getElementById('prev').onclick=()=>go(Math.max(0,cur-1));
-document.getElementById('next').onclick=()=>go(Math.min(DATA.icons.length-1,cur+1));
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(Math.min(DATA.icons.length-1,cur+1)); if(e.key==='ArrowLeft')go(Math.max(0,cur-1));});
-const toggle=document.getElementById('toggle'), ticon=document.getElementById('ticon');
-toggle.onclick=()=>{playing=!playing;
-  ticon.innerHTML=playing?'<rect x="7" y="5" width="3.2" height="14" rx="1"/><rect x="13.8" y="5" width="3.2" height="14" rx="1"/>':'<path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/>';
-  toggle.setAttribute('aria-label',playing?'일시정지':'재생');
-  playing?startAll():stopAll();};
-const mobile=matchMedia('(max-width:600px)'); let hideT;
-function showChrome(){document.body.classList.remove('hide'); clearTimeout(hideT); if(mobile.matches) hideT=setTimeout(()=>document.body.classList.add('hide'),2500);}
-track.addEventListener('click',()=>{ if(!mobile.matches) return; document.body.classList.contains('hide')?showChrome():(clearTimeout(hideT),document.body.classList.add('hide')); });
-document.querySelectorAll('footer button').forEach(b=>b.addEventListener('click',showChrome));
-setTimeout(()=>{document.getElementById('hint').style.opacity=0;},2200);
-// 브라우저 주소창·툴바를 뺀 실제 보이는 영역에 화면 전체가 들어오도록 크기 계산
-function fit(){
-  const vv=window.visualViewport, h=vv?vv.height:window.innerHeight;
-  document.documentElement.style.setProperty('--app-h', h+'px');
-  if(!mobile.matches){ document.querySelectorAll('.phone').forEach(p=>{p.style.width='';p.style.height='';}); return; }
-  const sl=track.querySelector('.slide'); if(!sl) return;
-  const cs=getComputedStyle(sl);
-  const W=sl.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
-  const H=sl.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
-  const k=Math.min(W/360,H/780);
-  document.querySelectorAll('.phone').forEach(p=>{p.style.width=(360*k)+'px';p.style.height=(780*k)+'px';});
-  track.scrollLeft=cur*track.clientWidth;
+  document.getElementById('next').disabled=cur===SCREENS.length-1;
 }
-addEventListener('resize',fit); addEventListener('orientationchange',()=>setTimeout(fit,300));
-if(window.visualViewport) visualViewport.addEventListener('resize',fit);
-render(); startAll(); showChrome(); fit();
+function flashPager(){pager.classList.remove('hide'); clearTimeout(pagerT); pagerT=setTimeout(()=>pager.classList.add('hide'),1600);}
+function go(k){k=Math.max(0,Math.min(SCREENS.length-1,k)); track.scrollTo({left:k*track.clientWidth,behavior:'smooth'});}
+track.addEventListener('scroll',()=>{const k=Math.round(track.scrollLeft/track.clientWidth); if(k!==cur){cur=k;render();flashPager();}},{passive:true});
+track.addEventListener('click',e=>{ if(!e.target.closest('.btn')) flashPager(); });
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1); if(e.key==='ArrowLeft')go(cur-1);});
+
+// 브라우저 주소창·툴바를 뺀 실제 보이는 높이로 맞춤
+function fit(){const vv=window.visualViewport; document.documentElement.style.setProperty('--app-h',(vv?vv.height:innerHeight)+'px'); track.scrollLeft=cur*track.clientWidth;}
+addEventListener('resize',fit); if(window.visualViewport) visualViewport.addEventListener('resize',fit);
+addEventListener('orientationchange',()=>setTimeout(fit,300));
+render(); fit(); flashPager();
+setTimeout(()=>{document.getElementById('hint').style.opacity=0;},2200);
 </script>
 </body>
 </html>
