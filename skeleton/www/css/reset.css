@@ -1,0 +1,152 @@
+@charset "utf-8";
+/* ==========================================================================
+   reset.css — 보험개발원 대물보상 모바일 AOS
+   ========================================================================== */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer,
+header, hgroup, menu, nav, section { display: block; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* hidden 속성은 display 를 지정한 클래스보다 우선합니다 */
+[hidden] { display: none !important; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* iOS 사파리 하단 툴바를 뺀 실제 보이는 높이 */
+  height: 100%;
+}
+
+body { line-height: 1.5; }
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+blockquote::before, blockquote::after,
+q::before, q::after { content: ''; content: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+img, svg { vertical-align: top; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  /* 모바일 탭 하이라이트 제거 — 눌림 효과는 :active 로 직접 그립니다 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, textarea, select {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+textarea { resize: none; }
+
+input:focus, textarea:focus, select:focus, button:focus { outline: none; }
+
+/* iOS 확대 방지 : 입력 필드는 16px 미만으로 두지 않습니다 */
+input, textarea, select { font-size: 16px; }
+
+/* placeholder */
+::placeholder { color: var(--c-gray-500); opacity: 1; }
+
+/* 숫자 인풋 스피너 제거 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+/* 스크롤바 숨김
+   모바일 웹 전용 산출물입니다. 실제 기기에서는 스크롤바가 오버레이로 떠서
+   자리를 차지하지 않지만, 데스크톱 브라우저·미리보기에서는 15px 를 먹고
+   시안과 폭이 달라 보입니다. 스크롤 동작은 그대로 두고 표시만 감춥니다. */
+html,
+body,
+.l-main,
+.sheet-list,
+.sheet-scroll,
+.tbl-scroll,
+.accordion-panel,
+.drawer,
+.menu-sub,
+.photo-row {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* 구형 Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.l-main::-webkit-scrollbar,
+.sheet-list::-webkit-scrollbar,
+.sheet-scroll::-webkit-scrollbar,
+.tbl-scroll::-webkit-scrollbar,
+.accordion-panel::-webkit-scrollbar,
+.drawer::-webkit-scrollbar,
+.menu-sub::-webkit-scrollbar,
+.photo-row::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* 접근성 : 화면에서 감추고 스크린리더에만 노출 */
+.blind {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 키보드 포커스 링 — 링크·일반 버튼용 */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* 폼 필드는 아웃라인을 그리지 않습니다.
+   대신 감싸는 .field 의 테두리가 primary 로 바뀝니다.
+   → component.css "폼 필드 포커스" 참고 */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible { outline: none; }

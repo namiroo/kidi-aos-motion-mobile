@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[Skeleton] 목록 · 보험청구조회 | 보험개발원 대물보상 모바일 AOS</title>
+<link rel="stylesheet" href="../www/css/reset.css">
+<link rel="stylesheet" href="../www/css/common.css">
+<link rel="stylesheet" href="../www/css/component.css">
+<link rel="stylesheet" href="../www/css/page.css">
+<link rel="stylesheet" href="../css/skeleton.css">
+</head>
+<body>
+<div class="l-app">
+  <!-- status-bar : 시안 재현용. 실제 앱에서는 제거해도 됩니다 -->
+  <div class="statusbar" aria-hidden="true">
+    <span class="statusbar-time">9:41</span>
+    <span class="statusbar-ind">
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><rect x="0" y="6" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.3" y="4" width="3" height="6" rx="1" fill="currentColor"/><rect x="8.6" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="12.9" y="0" width="3" height="10" rx="1" fill="currentColor"/></svg>
+      <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 10.4 0.4 3.5A10 10 0 0 1 14.6 3.5Z" fill="currentColor"/></svg>
+      <svg width="23" height="11" viewBox="0 0 23 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.6" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="7" rx="1.3" fill="currentColor"/><path d="M22 4v3a2 2 0 0 0 0-3Z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <!-- header -->
+  <header class="l-header l-header--sub">
+    <a href="#" class="btn-icon" aria-label="이전으로">
+      <span class="ico ico-24"><img src="../www/img/icon/icon_back_24.svg" alt=""></span>
+    </a>
+    <h1 class="header-title">보험청구조회</h1>
+    <div class="header-actions"></div>
+  </header>
+  <!-- search-form -->
+  <div class="search-form" style="padding:16px">
+    <div class="field-row">
+      <div class="field">
+        <label class="field-title" for="stFrom">조회기간</label>
+        <span class="field-box"><input type="text" id="stFrom" value="2026.05.01"><span class="ico ico-24"><img src="../www/img/icon/icon_calendar_24.svg" alt=""></span></span>
+      </div>
+      <span class="card-value c-disabled" style="flex:none;align-self:flex-end;padding-bottom:13px">~</span>
+      <div class="field">
+        <label class="field-title blind" for="stTo">종료일</label>
+        <span class="field-box"><input type="text" id="stTo" value="2026.06.03"><span class="ico ico-24"><img src="../www/img/icon/icon_calendar_24.svg" alt=""></span></span>
+      </div>
+    </div>
+    <div id="stMore" class="accordion-panel stack-8 mt-8" hidden>
+      <div class="field">
+        <span class="field-title">보험사</span>
+        <button type="button" class="field-box" data-ui="sheet-open" data-target="#stInsurerSheet"><span class="card-value c-muted"><span class="sk sk-line" style="--w:28px" aria-hidden="true"></span></span><span class="ico ico-24"><img src="../www/img/icon/icon_chevron_down_24.svg" alt=""></span></button>
+      </div>
+      <div class="field">
+        <label class="field-title" for="stClaimNo">접수번호</label>
+        <span class="field-box"><input type="text" id="stClaimNo" placeholder="접수번호 입력" value=""></span>
+      </div>
+    </div>
+    <div class="mt-8" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <button type="button" class="section-head-more" data-ui="accordion" data-target="#stMore" aria-expanded="false" aria-controls="stMore">
+        <span class="accordion-label">검색 조건 더보기</span><span class="ico ico-16 ico--mask ico--chevron" aria-hidden="true"></span>
+      </button>
+      <button type="button" class="btn btn--primary btn--md" style="min-width:100px"><span class="btn-label">조회</span></button>
+    </div>
+  </div>
+
+  <main aria-busy="true" class="l-main" style="padding-top:16px">
+    <p class="list-header sk-on-sunken" style="padding-top:0"><span class="card-value">총 <span class="sk sk-line" style="--w:17px" aria-hidden="true"></span>건</span></p>
+    <ul class="card-list">
+        <li>
+          <a href="#" class="card">
+            <div class="card-head">
+              <span class="card-meta">
+                <span class="sk sk-circle" style="--s:24px" aria-hidden="true"></span>
+                <span class="card-title"><span class="sk sk-line" style="--w:46px" aria-hidden="true"></span></span>
+                <span class="card-no"><span class="sk sk-line" style="--w:83px" aria-hidden="true"></span></span>
+              </span>
+              <span class="card-trailing"><span class="sk sk-box sk-box--badge" aria-hidden="true"></span></span>
+            </div>
+            <div class="card-info">
+              <span class="card-row"><span class="card-label">차량정보</span><span class="card-value"><span class="sk sk-line" style="--w:164px" aria-hidden="true"></span></span></span>
+              <span class="card-row"><span class="card-label">과실/지급액</span><span class="card-value"><span class="sk sk-line" style="--w:117px" aria-hidden="true"></span></span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></span>
+            </div>
+            <span class="card-consent"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="card">
+            <div class="card-head">
+              <span class="card-meta">
+                <span class="sk sk-circle" style="--s:24px" aria-hidden="true"></span>
+                <span class="card-title"><span class="sk sk-line" style="--w:61px" aria-hidden="true"></span></span>
+                <span class="card-no"><span class="sk sk-line" style="--w:83px" aria-hidden="true"></span></span>
+              </span>
+              <span class="card-trailing"><span class="sk sk-box sk-box--badge" aria-hidden="true"></span></span>
+            </div>
+            <div class="card-info">
+              <span class="card-row"><span class="card-label">차량정보</span><span class="card-value"><span class="sk sk-line" style="--w:156px" aria-hidden="true"></span></span></span>
+              <span class="card-row"><span class="card-label">과실/지급액</span><span class="card-value"><span class="sk sk-line" style="--w:108px" aria-hidden="true"></span></span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></span>
+            </div>
+            <span class="card-consent"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="card">
+            <div class="card-head">
+              <span class="card-meta">
+                <span class="sk sk-circle" style="--s:24px" aria-hidden="true"></span>
+                <span class="card-title"><span class="sk sk-line" style="--w:79px" aria-hidden="true"></span></span>
+                <span class="card-no"><span class="sk sk-line" style="--w:83px" aria-hidden="true"></span></span>
+              </span>
+              <span class="card-trailing card-trailing--date"><span class="sk sk-line" style="--w:70px" aria-hidden="true"></span></span>
+            </div>
+            <div class="card-info">
+              <span class="card-row"><span class="card-label">차량정보</span><span class="card-value"><span class="sk sk-line" style="--w:130px" aria-hidden="true"></span></span></span>
+              <span class="card-row"><span class="card-label">과실/지급액</span><span class="card-value"><span class="sk sk-line" style="--w:117px" aria-hidden="true"></span></span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></span>
+            </div>
+            <span class="card-consent"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="card">
+            <div class="card-head">
+              <span class="card-meta">
+                <span class="sk sk-circle" style="--s:24px" aria-hidden="true"></span>
+                <span class="card-title"><span class="sk sk-line" style="--w:61px" aria-hidden="true"></span></span>
+                <span class="card-no"><span class="sk sk-line" style="--w:83px" aria-hidden="true"></span></span>
+              </span>
+              <span class="card-trailing"><span class="sk sk-box sk-box--badge" aria-hidden="true"></span></span>
+            </div>
+            <div class="card-info">
+              <span class="card-row"><span class="card-label">차량정보</span><span class="card-value"><span class="sk sk-line" style="--w:164px" aria-hidden="true"></span></span></span>
+              <span class="card-row"><span class="card-label">과실/지급액</span><span class="card-value"><span class="sk sk-line" style="--w:108px" aria-hidden="true"></span></span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></span>
+            </div>
+            <span class="card-consent"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span></span>
+          </a>
+        </li>
+    </ul>
+  </main>
+
+  <a href="#" class="fab" aria-label="신규 청구 작성"><span class="ico ico-20"><img src="../www/img/icon/icon_add_20.svg" alt=""></span></a>
+  <div id="stInsurerSheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="stInsurerSheetT" hidden>
+    <div class="sheet-head">
+      <h2 class="sheet-title" id="stInsurerSheetT">보험사 선택</h2>
+      <button type="button" class="btn-icon" data-ui="sheet-close" aria-label="닫기"><span class="ico ico-24"><img src="../www/img/icon/icon_close_24.svg" alt=""></span></button>
+    </div>
+    <ul class="sheet-list">
+      <li><button type="button" class="list-row is-selected" data-ui="sheet-close"><span class="list-row-label">전체</span><span class="ico ico-24"><img src="../www/img/icon/icon_check_24.svg" alt=""></span></button></li>
+      <li><button type="button" class="list-row" data-ui="sheet-close"><span class="list-row-label">메리츠화재</span></button></li>
+      <li><button type="button" class="list-row" data-ui="sheet-close"><span class="list-row-label">현대해상</span></button></li>
+      <li><button type="button" class="list-row" data-ui="sheet-close"><span class="list-row-label">DB손해보험</span></button></li>
+      <li><button type="button" class="list-row" data-ui="sheet-close"><span class="list-row-label">삼성화재</span></button></li>
+    </ul>
+    <div class="sheet-foot">
+      <button type="button" class="btn btn--primary btn--block" data-ui="sheet-close"><span class="btn-label">확인</span></button>
+    </div>
+  </div>
+</div>
+<script src="../www/js/ui.js"></script>
+</body>
+</html>

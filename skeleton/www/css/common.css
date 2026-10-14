@@ -1,0 +1,368 @@
+@charset "utf-8";
+/* ==========================================================================
+   common.css — 디자인 토큰 / 타이포그래피 / 레이아웃
+   Figma : 보험개발원 대물보상 모바일 AOS (fileKey LTz7j9PQWBTVw8scarIwuY)
+           🗂️ Component (1:298) · test (1916:11084)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Font — Pretendard (dynamic subset)
+   -------------------------------------------------------------------------- */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+/* --------------------------------------------------------------------------
+   2. Design Token — Figma Variables(Collection 1) 1:1 매핑
+      Light / Dark 두 모드를 모두 정의합니다.
+      색상값 직접 사용 금지 — 반드시 토큰을 경유하세요.
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* 00_base — 모드와 무관하게 고정 */
+  --c-base-white: #ffffff;
+  --c-base-black: #1a1b20;
+
+  /* 01_primary / blue */
+  --c-blue-50:  #ecf4fd;
+  --c-blue-100: #b8d6f9;
+  --c-blue-200: #83b8f5;
+  --c-blue-300: #4d9bf1;
+  --c-blue-400: #177dee;
+  --c-blue-500: #0d61bf;
+  --c-blue-600: #0a53a6;
+  --c-blue-700: #07468c;
+  --c-blue-800: #043872;
+  --c-blue-900: #032b57;
+  --c-blue-950: #011d3c;
+
+  /* 01_primary / navy */
+  --c-navy-50:  #f0f1fa;
+  --c-navy-100: #c2c7eb;
+  --c-navy-200: #949ddc;
+  --c-navy-300: #6573ce;
+  --c-navy-400: #3b4cbc;
+  --c-navy-500: #2c398e;
+  --c-navy-600: #25317c;
+  --c-navy-700: #1f2969;
+  --c-navy-800: #192157;
+  --c-navy-900: #131944;
+  --c-navy-950: #0d1230;
+
+  /* 02_gray */
+  --c-gray-00:   #ffffff;
+  --c-gray-100:  #f2f3f6;
+  --c-gray-200:  #e5e7eb;
+  --c-gray-300:  #d1d4db;
+  --c-gray-400:  #b0b5c1;
+  --c-gray-500:  #8b91a1;
+  --c-gray-600:  #6b7284;
+  --c-gray-700:  #4e5568;
+  --c-gray-800:  #333a4b;
+  --c-gray-900:  #191d28;
+  --c-gray-1000: #1a1b20;
+
+  /* 03_line */
+  --c-line:        #e3e4e9;
+  --c-border-line: #dbe0e5;
+
+  /* 04_bg */
+  --c-bg01: #b8d6f9;   /* top    — blue/100 alias */
+  --c-bg02: #f2f3f6;   /* center — gray/100 alias */
+  --c-bg03: #f7f8fa;   /* input disabled */
+
+  /* 05_accent */
+  --c-error:   #f35167;
+  --c-success: #1bb091;
+  --c-danger:  #f04452;   /* Button/Danger */
+  --c-warning: #f4b64c;   /* favorite ★ */
+
+  /* 06_badge — 모드 공통(고정) */
+  --c-badge01-bg: #c3f3fc; --c-badge01-text: #0087a2;  /* 공임   */
+  --c-badge02-bg: #d0e4ff; --c-badge02-text: #2e75d3;  /* 부품   */
+  --c-badge03-bg: #e1e1ff; --c-badge03-text: #5957e0;  /* 실란트 */
+  --c-badge04-bg: #efe0ff; --c-badge04-text: #9950ec;  /* #공임  */
+  --c-badge05-bg: #fbe1fa; --c-badge05-text: #cf4dcf;  /* #부품  */
+
+  /* 의미 토큰 — 컴포넌트는 되도록 이 층을 씁니다 */
+  --c-primary:       var(--c-blue-500);
+  --c-primary-weak:  var(--c-blue-50);
+  --c-text:          var(--c-gray-1000);
+  --c-text-sub:      var(--c-gray-800);
+  --c-text-muted:    var(--c-gray-600);
+  --c-text-disabled: var(--c-gray-400);
+  --c-surface:       var(--c-gray-00);
+  --c-surface-sunken: var(--c-gray-100);
+
+  /* Effect — elevation/1~4 */
+  --shadow-1: 0 1px 2px rgba(16, 24, 40, .05);
+  --shadow-2: 0 4px 8px rgba(16, 24, 40, .05);
+  --shadow-3: 0 8px 24px rgba(16, 24, 40, .16);
+  --shadow-4: 0 0 28px rgba(16, 24, 40, .18);
+
+  /* Radius */
+  --r-badge: 5px;
+  --r-field: 8px;
+  --r-card: 12px;
+  --r-dialog: 16px;
+  --r-pill: 30px;
+
+  /* Layout */
+  --h-statusbar: 44px;
+  --h-appbar: 56px;
+  --h-tabs: 46px;
+  --gutter: 16px;
+  --w-design: 360px;
+
+  /* 홈 배경 그라데이션 (AppBar/Home 과 동일) */
+  --grad-home: linear-gradient(180deg, var(--c-bg01) 0%, var(--c-bg02) 51%);
+}
+
+/* --------------------------------------------------------------------------
+   2-1. Dark 토큰 (참고용 · 이번 퍼블리싱 범위 아님)
+   --------------------------------------------------------------------------
+   Figma Variables(Collection 1)에 Dark 모드값이 정의되어 있어 대조표로만 옮겨
+   두었습니다. 다크 모드는 이번 차수 업무 범위가 아니므로
+
+     · OS 설정(prefers-color-scheme)에 따른 자동 전환을 넣지 않았습니다.
+       → 사용자 기기가 다크여도 화면은 항상 라이트로 보입니다.
+     · <html class="is-dark"> 를 직접 붙였을 때만 적용됩니다. (확인용)
+
+   다크 모드가 정식 범위로 들어오면 아래 블록에 @media (prefers-color-scheme: dark)
+   를 추가하고 화면별 검수를 진행하면 됩니다.
+   -------------------------------------------------------------------------- */
+:root.is-dark {
+  color-scheme: dark;
+  --c-blue-50:#011d3c; --c-blue-100:#032b57; --c-blue-200:#043872; --c-blue-300:#07468c;
+  --c-blue-400:#0a53a6; --c-blue-500:#0d61bf; --c-blue-600:#177dee; --c-blue-700:#4d9bf1;
+  --c-blue-800:#83b8f5; --c-blue-900:#b8d6f9; --c-blue-950:#ecf4fd;
+  --c-navy-50:#0d1230; --c-navy-100:#131944; --c-navy-200:#192157; --c-navy-300:#1f2969;
+  --c-navy-400:#25317c; --c-navy-500:#2c398e; --c-navy-600:#3b4cbc; --c-navy-700:#6573ce;
+  --c-navy-800:#949ddc; --c-navy-900:#c2c7eb; --c-navy-950:#f0f1fa;
+  --c-gray-00:#1a1b20; --c-gray-100:#1e1f24; --c-gray-200:#26272d; --c-gray-300:#2e3038;
+  --c-gray-400:#3d3f47; --c-gray-500:#5a5c66; --c-gray-600:#8a8d99; --c-gray-700:#a9acb8;
+  --c-gray-800:#d3d5db; --c-gray-900:#edeef2; --c-gray-1000:#ffffff;
+  --c-line:#3b4655; --c-border-line:#4a5565; --c-bg03:#3d4a58;
+}
+
+/* --------------------------------------------------------------------------
+   3. Base
+   -------------------------------------------------------------------------- */
+body {
+  min-width: 320px;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: .0096em;
+  color: var(--c-text);
+  background: var(--c-surface-sunken);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   4. Typography — Figma Text Style 1:1
+      line-height 는 시안의 % 를 px 로 확정한 값입니다. (예 15px × 146.7% = 22px)
+      "Bold" 계열은 Title 만 700, 나머지는 SemiBold(600) 입니다.
+      ※ 스타일명은 Bold 지만 실제 굵기는 SemiBold 가 맞습니다. (2026-09-03 디자인 확정)
+        Heading / Headline / Body / Label / Caption = 600, Title 1·2·3 = 700
+   -------------------------------------------------------------------------- */
+.t-title1,   .t-title1-m,   .t-title1-r   { font-size: 32px; line-height: 44px; letter-spacing: -.0253em; }
+.t-title2,   .t-title2-m,   .t-title2-r   { font-size: 28px; line-height: 38px; letter-spacing: -.0236em; }
+.t-title3,   .t-title3-m,   .t-title3-r   { font-size: 24px; line-height: 32px; letter-spacing: -.0230em; }
+.t-head1,    .t-head1-m,    .t-head1-r    { font-size: 22px; line-height: 30px; letter-spacing: -.0194em; }
+.t-head2,    .t-head2-m,    .t-head2-r    { font-size: 20px; line-height: 28px; letter-spacing: -.0120em; }
+.t-hl1,      .t-hl1-m,      .t-hl1-r      { font-size: 18px; line-height: 26px; letter-spacing: -.0002em; }
+.t-hl2,      .t-hl2-m,      .t-hl2-r      { font-size: 17px; line-height: 24px; letter-spacing: 0; }
+.t-body1,    .t-body1-m,    .t-body1-r    { font-size: 16px; line-height: 24px; letter-spacing: .0057em; }
+.t-body2,    .t-body2-m,    .t-body2-r    { font-size: 15px; line-height: 22px; letter-spacing: .0096em; }
+.t-label1,   .t-label1-m,   .t-label1-r   { font-size: 14px; line-height: 20px; letter-spacing: .0145em; }
+.t-label2,   .t-label2-m,   .t-label2-r   { font-size: 13px; line-height: 18px; letter-spacing: .0194em; }
+.t-caption1, .t-caption1-m, .t-caption1-r { font-size: 12px; line-height: 16px; letter-spacing: .0252em; }
+.t-caption2, .t-caption2-m, .t-caption2-r { font-size: 11px; line-height: 14px; letter-spacing: .0311em; }
+
+.t-title1, .t-title2, .t-title3 { font-weight: 700; }
+.t-head1, .t-head2, .t-hl1, .t-hl2,
+.t-body1, .t-body2, .t-label1, .t-label2,
+.t-caption1, .t-caption2 { font-weight: 600; }
+
+.t-title1-m, .t-title2-m, .t-title3-m, .t-head1-m, .t-head2-m, .t-hl1-m, .t-hl2-m,
+.t-body1-m, .t-body2-m, .t-label1-m, .t-label2-m, .t-caption1-m, .t-caption2-m { font-weight: 500; }
+
+.t-title1-r, .t-title2-r, .t-title3-r, .t-head1-r, .t-head2-r, .t-hl1-r, .t-hl2-r,
+.t-body1-r, .t-body2-r, .t-label1-r, .t-label2-r, .t-caption1-r, .t-caption2-r { font-weight: 400; }
+
+/* 색 유틸 — 텍스트 역할 */
+.c-primary  { color: var(--c-primary); }
+.c-text     { color: var(--c-text); }
+.c-sub      { color: var(--c-text-sub); }
+.c-muted    { color: var(--c-text-muted); }
+.c-disabled { color: var(--c-text-disabled); }
+.c-error    { color: var(--c-error); }
+.c-success  { color: var(--c-success); }
+
+/* --------------------------------------------------------------------------
+   5. 아이콘 — 외곽 박스와 글리프 크기를 분리해 시안 지오메트리를 보존합니다
+   -------------------------------------------------------------------------- */
+.ico { display: inline-flex; flex: none; align-items: center; justify-content: center; position: relative; }
+.ico > img { display: block; flex: none; }
+/* 글자색을 따라가는 아이콘.
+   Figma 에서 아이콘 색을 라벨 색으로 오버라이드한 자리에 씁니다.
+   (예 nav/SectionHeader — 6개 변형 중 5개가 라벨과 같은 파랑 #0d61bf)
+   SVG 를 마스크로 쓰고 배경을 currentColor 로 칠합니다. */
+.ico--mask {
+  background-color: currentColor;
+  -webkit-mask: var(--ico) no-repeat center / 100% 100%;
+          mask: var(--ico) no-repeat center / 100% 100%;
+}
+.ico--chevron      { --ico: url("../img/icon/icon_chevron_down_16.svg"); }
+.ico--chevron-up   { --ico: url("../img/icon/icon_chevron_up_16.svg"); }
+.ico--chevron-right{ --ico: url("../img/icon/icon_chevron_right_16.svg"); }
+/* 아코디언은 aria-expanded 로 방향이 바뀝니다 (JS 가 src 를 바꾸지 않습니다) */
+[aria-expanded="true"] .ico--chevron {
+  --ico: url("../img/icon/icon_chevron_up_16.svg");
+}
+
+.ico-16 { width: 16px; height: 16px; }
+.ico-20 { width: 20px; height: 20px; }
+.ico-24 { width: 24px; height: 24px; }
+.ico-32 { width: 32px; height: 32px; }
+.ico-40 { width: 40px; height: 40px; }
+.ico-48 { width: 48px; height: 48px; }
+
+/* --------------------------------------------------------------------------
+   6. 레이아웃
+      .l-app  : 360 기준 모바일 뷰포트. 데스크톱에서는 가운데 정렬됩니다.
+      화면 높이는 100dvh 를 쓰고 헤더/푸터를 고정, 본문만 스크롤합니다.
+   -------------------------------------------------------------------------- */
+.l-app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--c-surface-sunken);
+  position: relative;
+}
+/* 홈 계열 화면 : 상단 하늘색 그라데이션 */
+.l-app--home { background: var(--grad-home) no-repeat top / 100% 400px, var(--c-surface-sunken); }
+/* 흰 배경 화면 (폼·상세) */
+.l-app--plain { background: var(--c-surface); }
+
+/* 상태바 (시안 재현용 — 실제 디바이스에서는 숨겨도 됩니다) */
+.statusbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--h-statusbar);
+  padding: 0 20px 0 26px;
+  /* 기본 흰색. 단, 로그인·메인(.l-app--home)은 상단 그라데이션을 그대로 통과시킵니다. */
+  background: var(--c-base-white);
+  color: var(--c-base-black);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.statusbar-time { min-width: 54px; }
+.statusbar-ind { display: flex; align-items: center; gap: 5px; }
+
+/* 앱바 */
+.l-header {
+  flex: none;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--h-appbar);
+  background: var(--c-surface);
+}
+.l-header--home   { gap: 12px; padding: 8px 12px 8px 16px; background: transparent; justify-content: space-between; }
+.l-header--sub    { padding: 0 8px 0 6px; }
+.l-header--modal  { padding: 12px 10px 0 16px; background: var(--c-surface); }
+.l-header--full   { padding: 0 8px 0 16px; }
+/* 홈/서브 상단이 그라데이션 위에 얹히는 화면 */
+.l-app--home .l-header { background: transparent; }
+/* 로그인·메인은 상태바까지 그라데이션이 이어집니다 */
+.l-app--home .statusbar { background: transparent; }
+
+.header-title { flex: 1 1 auto; min-width: 0; font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -.0002em; color: var(--c-text); }
+.l-header--modal .header-title { font-size: 16px; line-height: 24px; letter-spacing: .0057em; }
+.header-logo { display: block; height: 27px; }
+.header-logo img { height: 27px; width: auto; }
+
+/* 앱바 안 아이콘 버튼 — 44×44 터치 타깃 */
+.btn-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.btn-icon:active { background: var(--c-gray-100); }
+.header-actions { display: flex; align-items: center; }
+/* 텍스트형 액션 (완료 등) */
+.btn-text {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 8px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: .0096em;
+  color: var(--c-primary);
+}
+.btn-text:disabled, .btn-text.is-disabled { color: var(--c-text-disabled); }
+
+/* 본문
+   내부 스크롤 컨테이너를 두지 않고 문서 전체가 스크롤합니다.
+   헤더/푸터는 sticky 로 화면에 붙습니다. (iOS 주소창 수축 대응 · 인쇄/캡처 안전) */
+.l-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 var(--gutter) 24px;
+}
+/* 좌우 여백 없이 꽉 채우는 본문 (리스트·테이블) */
+.l-main--flush { padding-left: 0; padding-right: 0; }
+/* 하단 고정 버튼이 있는 화면은 그만큼 여백을 둡니다 */
+.l-main--has-footer { padding-bottom: 0; }
+
+/* 하단 고정 영역 */
+.l-footer {
+  flex: none;
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  padding: 14px 16px calc(20px + env(safe-area-inset-bottom));
+  background: var(--c-surface);
+}
+.l-footer--line { box-shadow: 0 -1px 0 var(--c-line); }
+
+/* 섹션 구분 (8px 회색 띠) */
+.divider-section { height: 8px; margin: 0 calc(var(--gutter) * -1); background: var(--c-surface-sunken); }
+.divider-full  { height: 1px; margin: 0 calc(var(--gutter) * -1); background: var(--c-line); }
+.divider-inset { height: 1px; background: var(--c-line); }
+
+/* 공통 간격 유틸 — 스페이싱 스케일 0/2/4/8/12/16/20/24/32/40/48/64 */
+.mt-4{margin-top:4px}.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}
+.mt-20{margin-top:20px}.mt-24{margin-top:24px}.mt-32{margin-top:32px}.mt-40{margin-top:40px}
+.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}.mb-24{margin-bottom:24px}
+.stack-8 > * + * { margin-top: 8px; }
+.stack-12 > * + * { margin-top: 12px; }
+.stack-16 > * + * { margin-top: 16px; }
+.stack-20 > * + * { margin-top: 20px; }
+.stack-24 > * + * { margin-top: 24px; }
+
+/* 폼 묶음 — 필드 사이 32px (시안 fields 그룹) */
+.fields { display: flex; flex-direction: column; gap: 32px; }
+/* 폼 하단 액션 줄 */
+.form-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.form-actions .btn { flex: none; }

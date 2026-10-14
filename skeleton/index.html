@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skeleton UI 개발 가이드 | 보험개발원 대물보상 모바일 AOS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/skeleton.css">
+<style>
+  :root{--ink:#1a1b20;--sub:#6b7284;--line:#e3e4e9;--bg:#f7f8fa;--blue:#0d61bf;--blue-bg:#ecf4fd;--code:#f2f3f6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;
+    font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-size:28px;margin:0 0 6px;letter-spacing:-.02em}
+  .lead{color:var(--sub);margin:0 0 8px}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+  .meta span{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--blue-bg);color:var(--blue)}
+  nav.toc{position:sticky;top:0;z-index:5;margin:28px -24px 0;padding:10px 24px;background:rgba(247,248,250,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:4px;flex-wrap:wrap}
+  nav.toc a{font-size:13px;color:var(--sub);text-decoration:none;padding:6px 10px;border-radius:8px}
+  nav.toc a:hover{background:#fff;color:var(--ink)}
+  section{margin-top:48px}
+  h2{font-size:20px;margin:0 0 6px;padding-top:8px}
+  h2 small{font-size:13px;font-weight:400;color:var(--sub);margin-left:8px}
+  h3{font-size:15px;margin:0 0 8px}
+  p.desc{color:var(--sub);margin:0 0 16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fill,minmax(520px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+  .rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+  .rule b{display:block;margin-bottom:2px}
+  .rule p{margin:0;color:var(--sub);font-size:13px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+  th{color:var(--sub);font-weight:600;font-size:12px;background:#fafbfc}
+  .swatch{display:inline-block;width:28px;height:18px;border-radius:4px;vertical-align:middle;margin-right:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--code);padding:2px 6px;border-radius:5px}
+  .demo{display:flex;flex-direction:column;gap:12px}
+  .stage{background:#f2f3f6;border-radius:10px;padding:16px}
+  .stage.white{background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+  .codebox{position:relative}
+  pre{margin:0;background:#1a1b20;color:#e5e7eb;border-radius:10px;padding:14px 16px;overflow:auto;font-size:12px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .copy{position:absolute;top:8px;right:8px;font:inherit;font-size:11px;border:0;border-radius:6px;padding:4px 8px;background:#333a4b;color:#fff;cursor:pointer}
+  .copy.done{background:var(--blue)}
+  .phones{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+  .phone{display:flex;flex-direction:column;gap:8px}
+  .phone .frame{position:relative;width:100%;aspect-ratio:360/780;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(26,27,32,.08)}
+  .phone iframe{position:absolute;left:0;top:0;width:360px;height:780px;border:0;transform-origin:0 0}
+  .phone .cap{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+  .phone .cap a{font-size:12px;color:var(--blue);text-decoration:none}
+  .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .btn{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;cursor:pointer}
+  .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  /* 상태 전환 데모용 실제 콘텐츠 */
+  .real-row{display:flex;align-items:center;gap:8px;padding:12px 0}
+  .real-row i{width:20px;height:20px;border-radius:50%;flex:none}
+  .real-row .n{flex:1;font-size:15px;line-height:22px;font-weight:600}
+  .real-row .c{font-size:15px;line-height:22px}
+  .real-row .d{width:40px;text-align:right;font-size:14px;line-height:20px;color:var(--sub)}
+  ul.check{margin:0;padding-left:18px}
+  ul.check li{margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Skeleton UI 개발 가이드</h1>
+  <p class="lead">보험개발원 대물보상 모바일 AOS · 서버 데이터를 불러오는 동안 콘텐츠 자리에 회색 골격을 먼저 보여 주는 로딩 표현입니다.</p>
+  <div class="meta">
+    <span>Figma · 🗂️ Component › Design System / Skeleton</span>
+    <span>Figma · 🎨 모바일 AOS › Skeleton UI_01~04</span>
+    <span>원본 · 02. 디자인/motion/skeleton</span><span>CSS · css/skeleton.css (퍼블: www/css/)</span>
+    <span>화면 · screens/*.html (퍼블: guide/html/skeleton/)</span>
+  </div>
+
+  <nav class="toc">
+    <a href="#rules">원칙</a><a href="#tokens">토큰</a><a href="#primitive">Primitive</a><a href="#pattern">Pattern</a>
+    <a href="#screens">화면 예시</a><a href="#state">상태 전환</a><a href="#checklist">체크리스트</a>
+  </nav>
+
+  <!-- 원칙 -->
+  <section id="rules">
+    <h2>원칙</h2>
+    <p class="desc">짧은 대기(1초 안팎)는 Spinner, 목록·카드·상세처럼 형태를 미리 알 수 있는 화면은 Skeleton을 씁니다. 한 화면에 둘을 섞지 않습니다.</p>
+    <div class="rules">
+      <div class="card rule"><b>무엇을 바꾸나</b><p>서버 값만 Skeleton — 업체명·보험사명·번호·날짜·금액·심볼·상태 뱃지·목록 행. 앱바·탭·검색 영역·섹션 제목·필드 라벨·하단 버튼은 실제 마크업 그대로.</p></div>
+      <div class="card rule"><b>감싸는 요소는 남긴다</b><p><code>.card-value</code> 같은 원래 요소 안의 텍스트만 <code>.sk</code>로 바꿉니다. 글자 크기·행간이 유지돼 로딩이 끝나도 화면이 흔들리지 않습니다.</p></div>
+      <div class="card rule"><b>개수</b><p>개수를 모르는 목록은 첫 화면분만 — 홈 최근 내역 5행, 카드 목록 4장. 상세는 실제 행 수 그대로.</p></div>
+      <div class="card rule"><b>폭</b><p>실제 텍스트의 평균 폭으로. 같은 열은 같은 폭, 여러 줄이면 마지막 줄을 60~70%로.</p></div>
+      <div class="card rule"><b>상호작용</b><p>Skeleton 영역은 누를 수 없음(<code>aria-busy="true"</code> 영역의 링크·버튼 비활성). 데이터가 필요한 하단 버튼은 <code>disabled</code>.</p></div>
+      <div class="card rule"><b>전환 타이밍</b><p>300ms 안에 응답이 오면 Skeleton을 띄우지 않음. 띄웠으면 최소 300ms 유지 후 200ms 페이드로 교체.</p></div>
+      <div class="card rule"><b>오류·빈 결과</b><p>실패하면 Error/Empty State로 바꾸고, 무한 Skeleton으로 두지 않음.</p></div>
+      <div class="card rule"><b>접근성</b><p>데이터 영역에 <code>aria-busy="true"</code>, Skeleton 요소는 <code>aria-hidden="true"</code>. 스크린리더에는 “불러오는 중”을 한 번만 안내. 동작 줄이기 설정 시 Shimmer 정지(CSS에 포함).</p></div>
+    </div>
+  </section>
+
+  <!-- 토큰 -->
+  <section id="tokens">
+    <h2>토큰</h2>
+    <p class="desc">Figma 변수 <code>AOS Color/07_skeleton/*</code>와 같은 값입니다. 바탕이 회색이면 bone이 묻히므로 한 단계 진한 값을 쓰는 클래스를 감싼 요소에 붙입니다.</p>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table>
+        <tr><th>CSS 변수 / 클래스</th><th>값</th><th>용도</th></tr>
+        <tr><td><code>--sk-bone</code></td><td><span class="swatch" style="background:#eef0f3"></span>#EEF0F3</td><td>기본 골격 색 (흰 바탕)</td></tr>
+        <tr><td><code>--sk-highlight</code></td><td><span class="swatch" style="background:#f7f8fa"></span>#F7F8FA</td><td>Shimmer 빛줄기</td></tr>
+        <tr><td><code>.sk-on-sunken</code></td><td><span class="swatch" style="background:#e5e7eb"></span>#E5E7EB / #EEF0F3</td><td>gray/100(#F2F3F6) 바탕 위 — 목록 화면 배경 등</td></tr>
+        <tr><td><code>.sk-on-muted</code></td><td><span class="swatch" style="background:#d1d4db"></span>#D1D4DB / #E5E7EB</td><td>gray/200(#E5E7EB) 바탕 위 — 공지 배너 등</td></tr>
+        <tr><td><code>--sk-radius</code></td><td>4px</td><td>텍스트 막대 라운드</td></tr>
+        <tr><td><code>--sk-duration</code></td><td>1.2s</td><td>Shimmer 한 번 지나가는 시간 (linear, 무한)</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- Primitive -->
+  <section id="primitive">
+    <h2>Primitive <small>모든 Skeleton은 이 네 가지로 조립합니다</small></h2>
+    <div class="grid g2">
+      <div class="card demo">
+        <h3>.sk-line — 인라인 줄 (가장 많이 씀)</h3>
+        <p class="desc" style="margin:0">값을 감싸던 요소 안에 넣습니다. 부모의 font-size·line-height를 따라가 행 높이가 실제와 같습니다. 폭은 <code>--w</code>.</p>
+        <div class="stage white">
+          <div style="font-size:15px;line-height:22px">차량정보 <span class="sk sk-line" style="--w:150px" aria-hidden="true"></span></div>
+          <div style="font-size:13px;line-height:18px;margin-top:6px">접수번호 <span class="sk sk-line" style="--w:87px" aria-hidden="true"></span></div>
+        </div>
+        <div class="codebox"><pre>&lt;!-- 실제 --&gt;
+&lt;span class="card-value"&gt;11가4564, 싼타페(SANT)&lt;/span&gt;
+&lt;!-- 로딩 중 --&gt;
+&lt;span class="card-value"&gt;&lt;span class="sk sk-line" style="--w:150px" aria-hidden="true"&gt;&lt;/span&gt;&lt;/span&gt;</pre></div>
+      </div>
+      <div class="card demo">
+        <h3>.sk-text — 블록 텍스트</h3>
+        <p class="desc" style="margin:0">감쌀 요소가 없을 때. 높이=행간, 막대=글자보다 조금 작게. Figma <code>skeleton/text</code>와 1:1.</p>
+        <div class="stage white" style="display:grid;gap:4px">
+          <div class="sk-text sk-text--heading" style="--w:200px" aria-hidden="true"></div>
+          <div class="sk-text sk-text--title" style="--w:170px" aria-hidden="true"></div>
+          <div class="sk-text sk-text--body" style="--w:220px" aria-hidden="true"></div>
+          <div class="sk-text sk-text--label" style="--w:140px" aria-hidden="true"></div>
+          <div class="sk-text sk-text--caption" style="--w:110px" aria-hidden="true"></div>
+        </div>
+        <div class="codebox"><pre>&lt;div class="sk-text sk-text--title" style="--w:170px" aria-hidden="true"&gt;&lt;/div&gt;
+&lt;!-- heading 28/18 · title 26/16 · body 22/14 · label 20/12 · caption 18/10 (행간/막대 px) --&gt;</pre></div>
+      </div>
+      <div class="card demo">
+        <h3>.sk-circle — 원</h3>
+        <p class="desc" style="margin:0">보험사 심볼·아이콘. <code>--s</code> 또는 <code>.sk-circle--20/24/32/40/48</code>.</p>
+        <div class="stage white row" style="gap:14px">
+          <span class="sk sk-circle sk-circle--20"></span><span class="sk sk-circle sk-circle--24"></span><span class="sk sk-circle sk-circle--32"></span><span class="sk sk-circle sk-circle--40"></span><span class="sk sk-circle sk-circle--48"></span>
+        </div>
+        <div class="codebox"><pre>&lt;span class="sk sk-circle sk-circle--24" aria-hidden="true"&gt;&lt;/span&gt;</pre></div>
+      </div>
+      <div class="card demo">
+        <h3>.sk-box — 박스</h3>
+        <p class="desc" style="margin:0">뱃지(4)·입력창/버튼(8)·카드/타일(12). <code>--w</code> <code>--h</code>로 크기.</p>
+        <div class="stage white row" style="gap:14px;align-items:flex-start">
+          <span class="sk sk-box sk-box--badge"></span>
+          <span class="sk sk-box sk-box--r8" style="--w:140px;--h:48px"></span>
+          <span class="sk sk-box sk-box--r12" style="--w:120px;--h:80px"></span>
+        </div>
+        <div class="codebox"><pre>&lt;span class="sk sk-box sk-box--badge"&gt;&lt;/span&gt;            &lt;!-- 상태 뱃지 48×22 --&gt;
+&lt;span class="sk sk-box sk-box--field"&gt;&lt;/span&gt;            &lt;!-- 입력창 높이 48 --&gt;
+&lt;span class="sk sk-box sk-box--r12" style="--w:120px;--h:80px"&gt;&lt;/span&gt;</pre></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pattern -->
+  <section id="pattern">
+    <h2>Pattern <small>실제 마크업을 아직 그릴 수 없을 때(목록이 비어 있을 때 등) 그대로 붙여 씁니다</small></h2>
+    <div class="grid g2">
+      <div class="card demo">
+        <h3>.sk-list-row — 최근 청구 내역 한 줄</h3>
+        <div class="stage white">
+          <div class="sk-list-row" aria-hidden="true"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+          <div class="sk-list-row" aria-hidden="true"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+        </div>
+        <div class="codebox"><pre>&lt;div class="sk-list-row" aria-hidden="true"&gt;
+  &lt;span class="sk sk-circle sk-circle--20"&gt;&lt;/span&gt;
+  &lt;span class="sk-text sk-text--body"&gt;&lt;/span&gt;                 &lt;!-- 보험사명 (채움) --&gt;
+  &lt;span class="sk-text sk-text--body" style="--w:80px"&gt;&lt;/span&gt;  &lt;!-- 차량번호 --&gt;
+  &lt;span class="sk-text sk-text--label" style="--w:40px"&gt;&lt;/span&gt; &lt;!-- 날짜 --&gt;
+&lt;/div&gt;</pre></div>
+      </div>
+      <div class="card demo">
+        <h3>.sk-card — 목록 카드 (card/Select)</h3>
+        <div class="stage">
+          <div class="sk-card" aria-hidden="true">
+            <div class="sk-card__head"><span class="sk sk-circle sk-circle--24"></span><span class="sk-text sk-text--title" style="--w:42px"></span><span class="sk-text sk-text--caption" style="--w:87px"></span><span class="sk-text sk-text--caption" style="--w:36px"></span><span class="sk sk-box sk-box--badge"></span></div>
+            <div class="sk-card__info">
+              <div class="sk-card__row"><span class="sk-text sk-text--label" style="--w:57px"></span><span class="sk-text sk-text--body" style="--w:185px"></span></div>
+              <div class="sk-card__row"><span class="sk-text sk-text--label" style="--w:67px"></span><span class="sk-text sk-text--body" style="--w:140px"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="codebox"><pre>&lt;div class="sk-card" aria-hidden="true"&gt;
+  &lt;div class="sk-card__head"&gt;
+    &lt;span class="sk sk-circle sk-circle--24"&gt;&lt;/span&gt;
+    &lt;span class="sk-text sk-text--title" style="--w:42px"&gt;&lt;/span&gt;
+    &lt;span class="sk-text sk-text--caption" style="--w:87px"&gt;&lt;/span&gt;
+    &lt;span class="sk-text sk-text--caption" style="--w:36px"&gt;&lt;/span&gt;
+    &lt;span class="sk sk-box sk-box--badge"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="sk-card__info"&gt;
+    &lt;div class="sk-card__row"&gt;&lt;span class="sk-text sk-text--label" style="--w:57px"&gt;&lt;/span&gt;&lt;span class="sk-text sk-text--body" style="--w:185px"&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sk-card__row"&gt;&lt;span class="sk-text sk-text--label" style="--w:67px"&gt;&lt;/span&gt;&lt;span class="sk-text sk-text--body" style="--w:140px"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+      </div>
+      <div class="card demo">
+        <h3>.sk-account · .sk-notice — 홈 상단</h3>
+        <div class="stage" style="display:grid;gap:12px">
+          <div class="sk-account" aria-hidden="true"><span class="sk sk-circle sk-circle--48"></span><span class="sk-account__text"><span class="sk-text sk-text--title" style="--w:180px"></span><span class="sk-text sk-text--caption" style="--w:100px"></span></span></div>
+          <div class="sk-notice" aria-hidden="true"><span class="sk sk-circle sk-circle--32"></span><span class="sk-notice__text"><span class="sk-text sk-text--label" style="--w:80px"></span><span class="sk-text sk-text--caption" style="--w:200px"></span></span></div>
+        </div>
+        <div class="codebox"><pre>&lt;div class="sk-account" aria-hidden="true"&gt;
+  &lt;span class="sk sk-circle sk-circle--48"&gt;&lt;/span&gt;
+  &lt;span class="sk-account__text"&gt;
+    &lt;span class="sk-text sk-text--title" style="--w:180px"&gt;&lt;/span&gt;
+    &lt;span class="sk-text sk-text--caption" style="--w:100px"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</pre></div>
+      </div>
+      <div class="card demo">
+        <h3>.sk-info-row · .sk-field — 상세 · 폼</h3>
+        <div class="stage white" style="display:grid;gap:16px">
+          <div class="sk-info-row" aria-hidden="true">
+            <div class="sk-info-row__pair"><span class="sk-text sk-text--label" style="--w:48px"></span><span class="sk-text sk-text--body" style="--w:80px"></span></div>
+            <div class="sk-info-row__pair"><span class="sk-text sk-text--label" style="--w:48px"></span><span class="sk-text sk-text--body" style="--w:80px"></span></div>
+          </div>
+          <div class="sk-field" aria-hidden="true"><span class="sk-text sk-text--label" style="--w:64px"></span><span class="sk sk-box sk-box--field"></span></div>
+        </div>
+        <div class="codebox"><pre>&lt;!-- 라벨이 고정 문구면 실제 라벨을 두고 값/입력창만 바꾸는 쪽을 권장 --&gt;
+&lt;div class="field"&gt;
+  &lt;label class="field-title"&gt;차량번호&lt;/label&gt;
+  &lt;span class="sk sk-box sk-box--field" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/div&gt;</pre></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 화면 예시 -->
+  <section id="screens">
+    <h2>화면 예시 <small>실제 퍼블 화면(www/html)에서 데이터 자리만 바꾼 결과입니다 — 클릭하면 크게</small></h2>
+    <p class="desc"><code>python3 _build_skeleton.py</code> 가 원본 화면을 읽어 자동으로 만듭니다. 원본 화면이 바뀌면 다시 돌리면 됩니다.</p>
+    <div class="phones">
+      <div class="phone"><div class="cap"><b>홈 · UI_CM_01_001</b><a href="screens/sk_home.html" target="_blank">새 창 ↗</a></div><div class="frame"><iframe src="screens/sk_home.html" title="홈 스켈레톤" loading="lazy"></iframe></div></div>
+      <div class="phone"><div class="cap"><b>목록 · UI_ST_01_003</b><a href="screens/sk_list.html" target="_blank">새 창 ↗</a></div><div class="frame"><iframe src="screens/sk_list.html" title="목록 스켈레톤" loading="lazy"></iframe></div></div>
+      <div class="phone"><div class="cap"><b>상세 · UI_ST_01_004</b><a href="screens/sk_detail.html" target="_blank">새 창 ↗</a></div><div class="frame"><iframe src="screens/sk_detail.html" title="상세 스켈레톤" loading="lazy"></iframe></div></div>
+      <div class="phone"><div class="cap"><b>폼 · UI_ST_01_006</b><a href="screens/sk_form.html" target="_blank">새 창 ↗</a></div><div class="frame"><iframe src="screens/sk_form.html" title="폼 스켈레톤" loading="lazy"></iframe></div></div>
+    </div>
+  </section>
+
+  <!-- 상태 전환 -->
+  <section id="state">
+    <h2>상태 전환 <small>300ms 지연 표시 · 최소 300ms 유지 · 200ms 페이드</small></h2>
+    <div class="grid g2">
+      <div class="card demo">
+        <h3>데모 — 응답 시간을 골라 보세요</h3>
+        <div class="row">
+          <button class="btn" data-ms="200">빠른 응답 200ms</button>
+          <button class="btn primary" data-ms="1500">보통 1.5초</button>
+          <button class="btn" data-ms="3000">느린 응답 3초</button>
+        </div>
+        <div class="stage white" style="min-height:250px">
+          <ul id="demoList" aria-live="polite" style="list-style:none;margin:0;padding:0"></ul>
+        </div>
+        <p class="desc" id="demoLog" style="margin:0;font-size:12px"></p>
+      </div>
+      <div class="card demo">
+        <h3>구현 예시 (Vanilla JS)</h3>
+        <div class="codebox"><button class="copy">복사</button><pre id="loaderCode">/**
+ * 데이터 영역에 Skeleton 을 띄우고 응답이 오면 교체합니다.
+ * - 300ms 안에 끝나면 Skeleton 을 아예 띄우지 않음 (깜빡임 방지)
+ * - 한 번 띄웠으면 최소 300ms 유지
+ */
+async function loadWithSkeleton(region, request, render, skeletonHTML) {
+  const DELAY = 300, MIN = 300;
+  let shownAt = 0;
+  const timer = setTimeout(() =&gt; {
+    region.setAttribute('aria-busy', 'true');
+    region.innerHTML = skeletonHTML;          // 예: .sk-card × 4
+    shownAt = performance.now();
+  }, DELAY);
+  try {
+    const data = await request();
+    clearTimeout(timer);
+    if (shownAt) {
+      const left = MIN - (performance.now() - shownAt);
+      if (left &gt; 0) await new Promise(r =&gt; setTimeout(r, left));
+    }
+    region.innerHTML = render(data);
+    region.classList.add('sk-fade-in');
+  } catch (e) {
+    clearTimeout(timer);
+    region.innerHTML = renderError(e);        // Error / Empty State 로 교체
+  } finally {
+    region.setAttribute('aria-busy', 'false');
+  }
+}</pre></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 체크리스트 -->
+  <section id="checklist">
+    <h2>개발 체크리스트</h2>
+    <div class="card">
+      <ul class="check">
+        <li><code>skeleton.css</code>를 페이지 CSS 뒤에 불러온다 (<code>page.css</code> 다음).</li>
+        <li><code>aria-busy="true"</code>는 데이터 영역(<code>main</code>·목록·시트)에만 — 앱바·하단 버튼에는 붙이지 않는다.</li>
+        <li>값을 감싸는 원래 요소는 남기고 안쪽만 <code>.sk</code>로 — 로딩 전후 높이가 같아야 한다.</li>
+        <li>목록은 첫 화면분(홈 5행·카드 4장)만 그린다.</li>
+        <li>회색 바탕 위에는 <code>.sk-on-sunken</code>(gray/100) · <code>.sk-on-muted</code>(gray/200)를 감싼 요소에.</li>
+        <li>300ms 지연 · 최소 300ms 유지 · 200ms 페이드 (위 예시 함수).</li>
+        <li>오류·빈 결과는 Skeleton을 남기지 말고 Error/Empty State로 교체.</li>
+        <li>Spinner와 같은 화면에서 동시에 쓰지 않는다.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+/* iframe 360×780 을 칸 너비에 맞게 축소 */
+function fitPhones(){document.querySelectorAll('.phone .frame').forEach(f=>{const k=f.clientWidth/360; f.querySelector('iframe').style.transform='scale('+k+')';});}
+addEventListener('resize',fitPhones); fitPhones();
+document.querySelectorAll('.phone .frame').forEach(f=>f.addEventListener('click',()=>open(f.querySelector('iframe').src,'_blank')));
+
+/* 복사 버튼 */
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{
+  const t=b.parentElement.querySelector('pre').innerText;
+  try{await navigator.clipboard.writeText(t);b.textContent='복사됨';b.classList.add('done');setTimeout(()=>{b.textContent='복사';b.classList.remove('done')},1500);}catch(e){}
+}));
+
+/* 상태 전환 데모 */
+const DATA=[['#00a2b1','현대해상','124어1223','06.01'],['#1c8a3c','DB손해보험','123어2450','05.29'],['#1428a0','삼성화재','140마3669','05.29'],['#0055b8','NH농협손해보험','155라4567','05.27'],['#e83e29','메리츠화재','178다1234','05.26']];
+const SK='<li class="sk-list-row" aria-hidden="true"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></li>'.repeat(5);
+const render=d=>d.map(r=>'<li class="real-row"><i style="background:'+r[0]+'"></i><span class="n">'+r[1]+'</span><span class="c">'+r[2]+'</span><span class="d">'+r[3]+'</span></li>').join('');
+async function loadWithSkeleton(region,request,render,skeletonHTML){
+  const DELAY=300,MIN=300; let shownAt=0;
+  const timer=setTimeout(()=>{region.setAttribute('aria-busy','true');region.classList.remove('sk-fade-in');region.innerHTML=skeletonHTML;shownAt=performance.now();},DELAY);
+  const data=await request(); clearTimeout(timer);
+  if(shownAt){const left=MIN-(performance.now()-shownAt); if(left>0) await new Promise(r=>setTimeout(r,left));}
+  region.classList.remove('sk-fade-in'); void region.offsetWidth;
+  region.innerHTML=render(data); region.classList.add('sk-fade-in'); region.setAttribute('aria-busy','false');
+  return !!shownAt;
+}
+const list=document.getElementById('demoList'), log=document.getElementById('demoLog');
+async function run(ms){
+  list.innerHTML=''; const t0=performance.now();
+  const shown=await loadWithSkeleton(list,()=>new Promise(r=>setTimeout(()=>r(DATA),ms)),render,SK);
+  log.textContent='응답 '+ms+'ms → Skeleton '+(shown?'표시함':'생략함(300ms 이내)')+' · 화면 교체까지 '+Math.round(performance.now()-t0)+'ms';
+}
+document.querySelectorAll('[data-ms]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-ms]').forEach(x=>x.classList.toggle('primary',x===b)); run(+b.dataset.ms);}));
+run(1500);
+</script>
+</body>
+</html>

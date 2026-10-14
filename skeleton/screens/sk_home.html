@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[Skeleton] 홈 | 보험개발원 대물보상 모바일 AOS</title>
+<link rel="stylesheet" href="../www/css/reset.css">
+<link rel="stylesheet" href="../www/css/common.css">
+<link rel="stylesheet" href="../www/css/component.css">
+<link rel="stylesheet" href="../www/css/page.css">
+<link rel="stylesheet" href="../css/skeleton.css">
+</head>
+<body>
+<div class="l-app l-app--home">
+  <!-- status-bar : 시안 재현용. 실제 앱에서는 제거해도 됩니다 -->
+  <div class="statusbar" aria-hidden="true">
+    <span class="statusbar-time">9:41</span>
+    <span class="statusbar-ind">
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><rect x="0" y="6" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.3" y="4" width="3" height="6" rx="1" fill="currentColor"/><rect x="8.6" y="2" width="3" height="8" rx="1" fill="currentColor"/><rect x="12.9" y="0" width="3" height="10" rx="1" fill="currentColor"/></svg>
+      <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 10.4 0.4 3.5A10 10 0 0 1 14.6 3.5Z" fill="currentColor"/></svg>
+      <svg width="23" height="11" viewBox="0 0 23 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.6" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="7" rx="1.3" fill="currentColor"/><path d="M22 4v3a2 2 0 0 0 0-3Z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <!-- header -->
+  <header class="l-header l-header--home">
+    <a href="#" class="header-logo">
+      <img src="../www/img/logo/logo_mobileaos.svg" alt="보험개발원 모바일 AOS">
+    </a>
+    <button type="button" class="btn-icon" data-ui="drawer-open" data-target="#gnbDrawer"
+            aria-label="전체 메뉴" aria-haspopup="true" aria-expanded="false">
+      <span class="ico ico-24"><img src="../www/img/icon/icon_menu_24.svg" alt=""></span>
+    </button>
+  </header>
+
+  <!-- main -->
+  <main aria-busy="true" class="l-main home-main">
+
+    <div class="account-card">
+      <span class="account-icon"><span class="sk sk-circle" style="--s:50px" aria-hidden="true"></span></span>
+      <div>
+        <p class="account-name"><span class="sk sk-line" style="--w:156px" aria-hidden="true"></span></p>
+        <p class="account-date"><span class="sk sk-line" style="--w:70px" aria-hidden="true"></span></p>
+      </div>
+    </div>
+
+    <div class="quick-menu">
+      <a href="#" class="quick-tile">
+        <span class="tile-title">청구 조회</span>
+        <span class="tile-icon"><span class="ico ico-48"><img src="../www/img/icon/icon_claim_inquiry_48.svg" alt=""></span></span>
+      </a>
+      <a href="#" class="quick-tile">
+        <span class="tile-title">보험금 지급 조회</span>
+        <span class="tile-icon"><span class="ico ico-48"><img src="../www/img/icon/icon_payment_inquiry_48.svg" alt=""></span></span>
+      </a>
+    </div>
+
+    <a href="#" class="btn btn--primary btn--block"><span class="btn-label">보험청구 작성</span></a>
+
+    <div class="home-notice">
+      <a href="#" class="notice-banner sk-on-muted">
+        <span class="sk sk-circle" style="--s:32px" aria-hidden="true"></span>
+        <span>
+          <span class="notice-cat"><span class="sk sk-line" style="--w:27px" aria-hidden="true"></span></span>
+          <span class="notice-title"><span class="sk sk-line" style="--w:220px" aria-hidden="true"></span></span>
+        </span>
+      </a>
+      <div class="notice-foot">
+        <span class="dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></span>
+        <a href="#" class="section-head-more section-head-more--sm">더보기 <span class="ico ico-16 ico--mask ico--chevron-right" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </main>
+
+<section class="recent-sheet" aria-busy="true">
+    <span class="drag-handle" aria-hidden="true"></span>
+    <div class="recent-head">
+      <h2 class="title">최근 접수 내역</h2>
+      <a href="#" class="btn-more">더보기</a>
+    </div>
+    <ul class="recent-list">
+        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:57px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
+        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:74px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
+        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:57px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
+        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:103px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
+        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:71px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
+    </ul>
+  </section>
+
+  <!-- drawer : 전체 메뉴 (우측에서 슬라이드) -->
+  <nav id="gnbDrawer" class="drawer" aria-label="전체 메뉴" hidden>
+    <div class="menu-top">
+      <span class="logo"><img src="../www/img/logo/logo_mobileaos.svg" alt="보험개발원 모바일 AOS"></span>
+      <button type="button" class="btn-icon" data-ui="drawer-close" aria-label="메뉴 닫기"><span class="ico ico-24"><img src="../www/img/icon/icon_close_24.svg" alt=""></span></button>
+    </div>
+
+    <div class="menu-account">
+      <div>
+        <p class="name">한국자동차유리 서초점</p>
+        <p class="greeting">환영합니다!</p>
+      </div>
+      <a href="#" class="btn-logout">로그아웃</a>
+    </div>
+
+    <div class="menu-group">
+      <button type="button" class="menu-head" data-ui="accordion" data-target="#menuG1" aria-expanded="true" aria-controls="menuG1">
+        <span class="ico ico-24"><img src="../www/img/icon/icon_estimate_24.svg" alt=""></span>
+        <span>견적관리</span>
+        <span class="ico ico-16 ico--mask ico--chevron" aria-hidden="true"></span>
+      </button>
+      <ul class="menu-sub" id="menuG1">
+        <li><a href="#">접수조회</a></li>
+        <li><a href="#">보험청구조회</a></li>
+        <li><a href="javascript:void(0);">일반청구조회</a></li>
+        <li><a href="javascript:void(0);">손해사정조회</a></li>
+        <li><a href="#">보험금지급조회</a></li>
+        <li><a href="javascript:void(0);">미결관리</a></li>
+        <li><a href="javascript:void(0);">업무연락</a></li>
+        <li><a href="javascript:void(0);">연락처관리</a></li>
+      </ul>
+    </div>
+    <div class="menu-group">
+      <button type="button" class="menu-head" data-ui="accordion" data-target="#menuG2" aria-expanded="true" aria-controls="menuG2">
+        <span class="ico ico-24"><img src="../www/img/icon/icon_basic_work_24.svg" alt=""></span>
+        <span>기초업무</span>
+        <span class="ico ico-16 ico--mask ico--chevron" aria-hidden="true"></span>
+      </button>
+      <ul class="menu-sub" id="menuG2">
+        <li><a href="#">기초사항</a></li>
+        <li><a href="javascript:void(0);">보험사설정</a></li>
+      </ul>
+    </div>
+    <div class="menu-group">
+      <a href="#" class="menu-head"><span class="ico ico-24"><img src="../www/img/icon/icon_notice_24.svg" alt=""></span><span>공지사항</span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></a>
+      <a href="#" class="menu-head"><span class="ico ico-24"><img src="../www/img/icon/icon_help_24.svg" alt=""></span><span>도움말</span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></a>
+    </div>
+  </nav>
+</div>
+<script src="../www/js/ui.js"></script>
+</body>
+</html>
