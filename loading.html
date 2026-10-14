@@ -61,15 +61,9 @@
   .loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center}
   .loading-box{position:relative}
   .loading img{display:block;width:56px;height:56px}   /* 56×56, 그림자 없음 */
-  /* 하단 문구 — Figma 2621:20444 : 배지 아래 4px, Label 1/Medium(14·20, 자간 1.45%), #1A1B20
-     빛이 왼쪽→오른쪽으로 흐르는 효과(텍스트 shimmer) — 1.2초, 로딩 애니메이션 한 사이클(2.4초)에 두 번 */
+  /* 하단 문구 — Figma 2621:20444 : 배지 아래 4px, Label 1/Medium(14·20, 자간 1.45%), #1A1B20 (효과 없음) */
   .loading-text{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;
-    font-size:14px;line-height:20px;font-weight:500;letter-spacing:.0145em;color:#1a1b20;
-    background:linear-gradient(100deg,#1a1b20 0%,#1a1b20 38%,#c2c7d0 50%,#1a1b20 62%,#1a1b20 100%) 0 0/250% 100% no-repeat;
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    animation:text-shine 1.2s linear infinite}
-  @keyframes text-shine{from{background-position:100% 0}to{background-position:0 0}}
-  @media (prefers-reduced-motion:reduce){.loading-text{animation:none;background:none;-webkit-text-fill-color:#1a1b20}}
+    font-size:14px;line-height:20px;font-weight:500;letter-spacing:.0145em;color:#1a1b20}
 </style>
 </head>
 <body>
