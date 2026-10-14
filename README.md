@@ -22,29 +22,29 @@
 
 **https://namiroo.github.io/kidi-aos-motion-mobile/loading.html**
 
-접수조회 화면 가운데에 로딩 배지가 **끝나지 않고 계속 반복**됩니다.
+접수조회 화면 가운데에 로딩 배지가 **끝나지 않고 계속 반복**됩니다. (2026-10-14 최종: 심볼+AOS 배지)
 
 | 항목 | 값 |
 |---|---|
-| 파일 | [`img/loading/loading-mark-badge.gif`](img/loading/loading-mark-badge.gif) — [직접 링크](https://namiroo.github.io/kidi-aos-motion-mobile/img/loading/loading-mark-badge.gif) |
-| 형태 | 흰 원 배지 안에 심볼(M) · 원 테두리 없음 · 원 바깥 투명 |
-| 화면 표시 크기 | **50 × 50** · 화면 정중앙 · 그림자 없음 · 배경 딤 없음 |
+| 파일 | [`img/loading/loading-logo-badge.gif`](img/loading/loading-logo-badge.gif) — [직접 링크](https://namiroo.github.io/kidi-aos-motion-mobile/img/loading/loading-logo-badge.gif) |
+| 형태 | 흰 원 배지 안에 심볼(M) + AOS 글자(정지) · 원 테두리 없음 · 원 바깥 투명 |
+| 화면 표시 크기 | **56 × 56** · 화면 정중앙 · 그림자 없음 · 배경 딤 없음 |
 | 원본 크기 | 512 × 512 (고해상도 화면 대응) |
 | 모션 | M 획이 오른쪽 위 링 속으로 들어감 → 링이 스피너처럼 회전 → M 이 링에서 다시 뻗어 나옴 |
 | 주기 | 2.4초, 무한 반복 (GIF loop 0) |
-| Figma | `🎨 모바일 AOS` › Loading (2593:20317) · 배지 2594:22011 |
+| Figma | `🎨 모바일 AOS` › Loading (2593:20317) · 배지 2594:22013 |
 
 적용 예
 
 ```html
 <div class="loading" role="status">
-  <img src="loading-mark-badge.gif" width="50" height="50" alt="">
+  <img src="loading-logo-badge.gif" width="56" height="56" alt="">
   <span class="sr-only">불러오는 중</span>
 </div>
 ```
 
 - 로딩 중에는 뒤 화면 터치를 막고, 스크린리더에는 "불러오는 중"을 알립니다.
-- 같은 모션의 Lottie(JSON)·WebP·SVG 는 원본 폴더(`02. 디자인/motion/loading/output/`)에 있습니다. [`img/loading/*.svg`](img/loading/) 는 비교 단계에서 쓴 이전 파일입니다.
+- 같은 모션의 Lottie(JSON)·WebP·SVG 는 원본 폴더(`02. 디자인/motion/loading/output/`)에 있습니다. `img/loading/loading-mark-badge.gif`(심볼만) 와 `*.svg` 는 비교 단계에서 쓴 이전 파일입니다.
 
 ## 2. Skeleton 개발 가이드
 
@@ -79,8 +79,9 @@
 ## 파일
 
 ```
-loading.html                          로딩 애니메이션 최종안 데모 (접수조회 + 50×50 배지, 무한 반복)
-img/loading/loading-mark-badge.gif    로딩 애니메이션 최종 파일
+loading.html                          로딩 애니메이션 최종안 데모 (접수조회 + 56×56 배지, 무한 반복)
+img/loading/loading-logo-badge.gif    로딩 애니메이션 최종 파일 (심볼+AOS)
+img/loading/loading-mark-badge.gif    이전안 (심볼만)
 img/loading/*.svg                     비교 단계 이전 파일
 skeleton/                             Skeleton 개발 가이드
   index.html                          가이드
@@ -99,7 +100,7 @@ robots.txt                            검색 노출 차단
 
 | 대상 | 원본에서 할 일 | 이 저장소에서 할 일 |
 |---|---|---|
-| 로딩 애니메이션 | `motion/loading/` 에서 `python3 _build_loading.py` | `output/loading-mark-badge.gif` 를 `img/loading/` 에 복사 |
+| 로딩 애니메이션 | `motion/loading/` 에서 `python3 _build_loading.py` | `output/loading-logo-badge.gif` 를 `img/loading/` 에 복사 |
 | Skeleton 가이드 | `motion/skeleton/` 에서 `python3 _build_skeleton.py --pages` | (스크립트가 `skeleton/` 을 바로 갱신) |
 | 모션 화면 문구 | — | `index.html` 의 `SCREENS` 배열 수정 |
 
