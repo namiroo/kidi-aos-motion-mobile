@@ -9,7 +9,7 @@
 | 페이지 | 링크 | 내용 |
 |---|---|---|
 | 모바일 화면 | https://namiroo.github.io/kidi-aos-motion-mobile/ | 6개 화면을 실제 앱처럼 폰에서 확인 |
-| 로딩 애니메이션 | https://namiroo.github.io/kidi-aos-motion-mobile/loading.html | 최종안 — 접수조회 화면 가운데 60px 흰 원 배지 안 심볼 애니메이션이 끝나지 않고 계속 반복 (Figma 2594:22011). 파일: [img/loading/loading-mark-badge.gif](img/loading/loading-mark-badge.gif) |
+| 로딩 애니메이션 | https://namiroo.github.io/kidi-aos-motion-mobile/loading.html | 최종안 — 접수조회 화면 가운데 50×50 흰 원 배지(그림자 없음) 안 심볼 애니메이션이 끝나지 않고 계속 반복 (Figma 2594:22011). 파일: [img/loading/loading-mark-badge.gif](img/loading/loading-mark-badge.gif) |
 | Skeleton 개발 가이드 | https://namiroo.github.io/kidi-aos-motion-mobile/skeleton/ | 퍼블리셔·개발자 전달용 — 원칙·토큰·Primitive/Pattern 코드·대표 화면 4종(홈·목록·상세·폼)·상태 전환 데모. 실제로 쓸 CSS 는 [skeleton/css/skeleton.css](skeleton/css/skeleton.css) |
 | 모션 프리뷰 | https://namiroo.github.io/kidi-aos-motion-mobile/preview.html | 모션 아이콘 6종 확인 — 재생 속도(1× · 0.5× · 0.25×) · 키프레임만 보기 · 화면 적용 · 타이밍 표 |
 

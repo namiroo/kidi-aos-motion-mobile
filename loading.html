@@ -56,10 +56,10 @@
   .fab{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:50px;height:50px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(13,97,191,.35)}
   .fab svg{width:24px;height:24px}
 
-  /* ── 로딩 배지 — Figma 2594:22011 : 화면 가운데 60px 흰 원 안 심볼 애니메이션 (최종: loading-mark-badge.gif)
+  /* ── 로딩 배지 — Figma 2594:22011 : 화면 가운데 50px 흰 원 안 심볼 애니메이션 (최종: loading-mark-badge.gif)
      배경 막 없이(투명) 계속 반복 재생. 로딩 중이므로 뒤 화면 터치는 막는다. */
   .loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center}
-  .loading img{display:block;width:60px;height:60px;border-radius:50%;box-shadow:0 4px 12px rgba(26,27,32,.08)}
+  .loading img{display:block;width:50px;height:50px}   /* 50×50, 그림자 없음 */
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
@@ -93,7 +93,7 @@
 
   <!-- 로딩 배지 — 끝나지 않고 계속 반복 -->
   <div class="loading" role="status" aria-live="polite">
-    <img src="img/loading/loading-mark-badge.gif" width="60" height="60" alt="">
+    <img src="img/loading/loading-mark-badge.gif?v=2" width="50" height="50" alt="">
     <span class="sr">불러오는 중</span>
   </div>
 </div>
