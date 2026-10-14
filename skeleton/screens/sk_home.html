@@ -5,14 +5,51 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>[Skeleton] 홈 | 보험개발원 대물보상 모바일 AOS</title>
+<!-- Figma 🎨 모바일 AOS › Skeleton UI_01 (UI_CM_01_001) 2594:21037 기준으로 직접 작성한 화면.
+     퍼블 원본(www/html/UI_CM_01_001)이 이전 시안이라 변환하지 않고 이 템플릿을 그대로 쓴다. (_build_skeleton.py) -->
 <link rel="stylesheet" href="../www/css/reset.css">
 <link rel="stylesheet" href="../www/css/common.css">
-<link rel="stylesheet" href="../www/css/component.css">
-<link rel="stylesheet" href="../www/css/page.css">
 <link rel="stylesheet" href="../css/skeleton.css">
+<style>
+  /* 화면 전용 — Figma 수치 그대로 */
+  .hm{min-height:100dvh;padding-bottom:16px;
+    background:linear-gradient(180deg,#b8d6f9 0,#f2f3f6 370px) no-repeat,#f2f3f6}
+  .hm .statusbar{background:transparent}
+  .hm-appbar{height:56px;display:flex;align-items:center;justify-content:space-between;padding:8px 12px 8px 16px}
+  .hm-appbar .logo{display:block;width:110px;height:27px}
+  .hm-appbar .menu{width:44px;height:44px;display:grid;place-items:center}
+  .hm-body{padding:20px 16px 0;display:flex;flex-direction:column}
+  /* 업체 정보 — skeleton/account */
+  .hm-account{height:66px}
+  /* 바로가기 타일 */
+  .hm-quick{display:flex;gap:8px;margin-top:10px}
+  .hm-tile{flex:1;height:94px;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;
+    background:linear-gradient(180deg,#fff,#f2f3f6);box-shadow:0 4px 8px rgba(16,24,40,.05)}
+  .hm-tile .t{font-size:15px;line-height:22px;font-weight:600;color:#1a1b20}
+  .hm-tile .i{margin-top:auto;align-self:flex-end;width:48px;height:48px}
+  /* 청구서 작성 */
+  .hm-cta{margin-top:14px;height:48px;border-radius:8px;background:#0d61bf;color:#fff;
+    display:flex;align-items:center;justify-content:center;gap:2px;font-size:16px;line-height:24px;font-weight:500}
+  .hm-cta svg{width:20px;height:20px}
+  /* 공지 — skeleton/notice-banner + 인디케이터 + 전체보기 */
+  .hm-notice{margin-top:20px}
+  .hm-notice-foot{height:44px;display:flex;align-items:center;justify-content:space-between;padding-left:76px}
+  .hm-dots{flex:1;display:flex;justify-content:center;gap:4px}
+  .hm-dots i{width:5px;height:5px;border-radius:999px;background:#b0b5c1}
+  .hm-dots i.on{width:15px;background:#0d61bf}
+  .hm-more{display:flex;align-items:center;gap:4px;padding:0 8px;font-size:13px;line-height:18px;font-weight:500;color:#333a4b}
+  .hm-more img{width:16px;height:16px}
+  /* 최근 청구 내역 */
+  .hm-recent{margin-top:32px;background:#fff;border-radius:20px;padding:16px 20px;box-shadow:0 4px 8px rgba(16,24,40,.05)}
+  .hm-recent-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid #e5edf7}
+  .hm-recent-head h2{font-size:15px;line-height:22px;font-weight:600;color:#1a1b20}
+  .hm-recent-head .btn-more{height:30px;padding:4px 12px;border-radius:6px;background:#fff;box-shadow:inset 0 0 0 1px #dbe0e5;
+    font-size:14px;line-height:20px;font-weight:500;color:#4e5568}
+  .hm-recent-list{margin-top:12px}
+</style>
 </head>
 <body>
-<div class="l-app l-app--home">
+<div class="l-app hm">
   <!-- status-bar : 시안 재현용. 실제 앱에서는 제거해도 됩니다 -->
   <div class="statusbar" aria-hidden="true">
     <span class="statusbar-time">9:41</span>
@@ -22,120 +59,62 @@
       <svg width="23" height="11" viewBox="0 0 23 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.6" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="7" rx="1.3" fill="currentColor"/><path d="M22 4v3a2 2 0 0 0 0-3Z" fill="currentColor" opacity=".4"/></svg>
     </span>
   </div>
-  <!-- header -->
-  <header class="l-header l-header--home">
-    <a href="#" class="header-logo">
-      <img src="../www/img/logo/logo_mobileaos.svg" alt="보험개발원 모바일 AOS">
-    </a>
-    <button type="button" class="btn-icon" data-ui="drawer-open" data-target="#gnbDrawer"
-            aria-label="전체 메뉴" aria-haspopup="true" aria-expanded="false">
-      <span class="ico ico-24"><img src="../www/img/icon/icon_menu_24.svg" alt=""></span>
-    </button>
+
+  <!-- 앱바 (고정 UI) -->
+  <header class="hm-appbar">
+    <img class="logo" src="../www/img/logo/logo_mobileaos.svg" alt="MobileAOS">
+    <button type="button" class="menu" aria-label="전체 메뉴"><img src="../www/img/icon/icon_menu_24.svg" alt="" width="24" height="24"></button>
   </header>
 
-  <!-- main -->
-  <main aria-busy="true" class="l-main home-main">
-
-    <div class="account-card">
-      <span class="account-icon"><span class="sk sk-circle" style="--s:50px" aria-hidden="true"></span></span>
-      <div>
-        <p class="account-name"><span class="sk sk-line" style="--w:156px" aria-hidden="true"></span></p>
-        <p class="account-date"><span class="sk sk-line" style="--w:70px" aria-hidden="true"></span></p>
-      </div>
+  <main class="hm-body" aria-busy="true">
+    <!-- 업체 정보 → Skeleton (skeleton/account) -->
+    <div class="sk-account hm-account" aria-hidden="true">
+      <span class="sk sk-circle sk-circle--48"></span>
+      <span class="sk-account__text">
+        <span class="sk-text sk-text--title" style="--w:180px"></span>
+        <span class="sk-text sk-text--caption" style="--w:100px"></span>
+      </span>
     </div>
 
-    <div class="quick-menu">
-      <a href="#" class="quick-tile">
-        <span class="tile-title">청구 조회</span>
-        <span class="tile-icon"><span class="ico ico-48"><img src="../www/img/icon/icon_claim_inquiry_48.svg" alt=""></span></span>
-      </a>
-      <a href="#" class="quick-tile">
-        <span class="tile-title">보험금 지급 조회</span>
-        <span class="tile-icon"><span class="ico ico-48"><img src="../www/img/icon/icon_payment_inquiry_48.svg" alt=""></span></span>
-      </a>
+    <!-- 바로가기 (고정 UI) -->
+    <div class="hm-quick">
+      <a class="hm-tile"><span class="t">청구 조회</span><img class="i" src="../www/img/icon/icon_claim_inquiry_48.svg" alt=""></a>
+      <a class="hm-tile"><span class="t">보험금 지급 조회</span><img class="i" src="../www/img/icon/icon_payment_inquiry_48.svg" alt=""></a>
     </div>
 
-    <a href="#" class="btn btn--primary btn--block"><span class="btn-label">보험청구 작성</span></a>
+    <!-- 청구서 작성 (고정 UI) -->
+    <a class="hm-cta"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M10 4v12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>청구서 작성</a>
 
-    <div class="home-notice">
-      <a href="#" class="notice-banner sk-on-muted">
-        <span class="sk sk-circle" style="--s:32px" aria-hidden="true"></span>
-        <span>
-          <span class="notice-cat"><span class="sk sk-line" style="--w:27px" aria-hidden="true"></span></span>
-          <span class="notice-title"><span class="sk sk-line" style="--w:220px" aria-hidden="true"></span></span>
+    <!-- 공지 → Skeleton (skeleton/notice-banner) + 인디케이터·전체보기는 고정 UI -->
+    <section class="hm-notice">
+      <div class="sk-notice" aria-hidden="true">
+        <span class="sk sk-circle sk-circle--32"></span>
+        <span class="sk-notice__text">
+          <span class="sk-text sk-text--label" style="--w:80px"></span>
+          <span class="sk-text sk-text--caption" style="--w:200px"></span>
         </span>
-      </a>
-      <div class="notice-foot">
-        <span class="dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></span>
-        <a href="#" class="section-head-more section-head-more--sm">더보기 <span class="ico ico-16 ico--mask ico--chevron-right" aria-hidden="true"></span></a>
       </div>
-    </div>
+      <div class="hm-notice-foot">
+        <span class="hm-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
+        <a class="hm-more">전체보기 <img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></a>
+      </div>
+    </section>
+
+    <!-- 최근 청구 내역 — 제목·더보기는 고정 UI, 목록 5행은 Skeleton (skeleton/list-row) -->
+    <section class="hm-recent">
+      <div class="hm-recent-head">
+        <h2>최근 청구 내역</h2>
+        <a class="btn-more">더보기</a>
+      </div>
+      <div class="hm-recent-list" aria-hidden="true">
+        <div class="sk-list-row"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+        <div class="sk-list-row"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+        <div class="sk-list-row"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+        <div class="sk-list-row"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+        <div class="sk-list-row"><span class="sk sk-circle sk-circle--20"></span><span class="sk-text sk-text--body"></span><span class="sk-text sk-text--body" style="--w:80px"></span><span class="sk-text sk-text--label" style="--w:40px"></span></div>
+      </div>
+    </section>
   </main>
-
-<section class="recent-sheet" aria-busy="true">
-    <span class="drag-handle" aria-hidden="true"></span>
-    <div class="recent-head">
-      <h2 class="title">최근 접수 내역</h2>
-      <a href="#" class="btn-more">더보기</a>
-    </div>
-    <ul class="recent-list">
-        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:57px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
-        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:74px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
-        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:57px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
-        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:103px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
-        <li><a href="#" class="recent-row"><span class="sk sk-circle" style="--s:20px" aria-hidden="true"></span><span class="insurer"><span class="sk sk-line" style="--w:71px" aria-hidden="true"></span></span><span class="carno"><span class="sk sk-line" style="--w:75px" aria-hidden="true"></span></span><span class="date"><span class="sk sk-line" style="--w:38px" aria-hidden="true"></span></span></a></li>
-    </ul>
-  </section>
-
-  <!-- drawer : 전체 메뉴 (우측에서 슬라이드) -->
-  <nav id="gnbDrawer" class="drawer" aria-label="전체 메뉴" hidden>
-    <div class="menu-top">
-      <span class="logo"><img src="../www/img/logo/logo_mobileaos.svg" alt="보험개발원 모바일 AOS"></span>
-      <button type="button" class="btn-icon" data-ui="drawer-close" aria-label="메뉴 닫기"><span class="ico ico-24"><img src="../www/img/icon/icon_close_24.svg" alt=""></span></button>
-    </div>
-
-    <div class="menu-account">
-      <div>
-        <p class="name">한국자동차유리 서초점</p>
-        <p class="greeting">환영합니다!</p>
-      </div>
-      <a href="#" class="btn-logout">로그아웃</a>
-    </div>
-
-    <div class="menu-group">
-      <button type="button" class="menu-head" data-ui="accordion" data-target="#menuG1" aria-expanded="true" aria-controls="menuG1">
-        <span class="ico ico-24"><img src="../www/img/icon/icon_estimate_24.svg" alt=""></span>
-        <span>견적관리</span>
-        <span class="ico ico-16 ico--mask ico--chevron" aria-hidden="true"></span>
-      </button>
-      <ul class="menu-sub" id="menuG1">
-        <li><a href="#">접수조회</a></li>
-        <li><a href="#">보험청구조회</a></li>
-        <li><a href="javascript:void(0);">일반청구조회</a></li>
-        <li><a href="javascript:void(0);">손해사정조회</a></li>
-        <li><a href="#">보험금지급조회</a></li>
-        <li><a href="javascript:void(0);">미결관리</a></li>
-        <li><a href="javascript:void(0);">업무연락</a></li>
-        <li><a href="javascript:void(0);">연락처관리</a></li>
-      </ul>
-    </div>
-    <div class="menu-group">
-      <button type="button" class="menu-head" data-ui="accordion" data-target="#menuG2" aria-expanded="true" aria-controls="menuG2">
-        <span class="ico ico-24"><img src="../www/img/icon/icon_basic_work_24.svg" alt=""></span>
-        <span>기초업무</span>
-        <span class="ico ico-16 ico--mask ico--chevron" aria-hidden="true"></span>
-      </button>
-      <ul class="menu-sub" id="menuG2">
-        <li><a href="#">기초사항</a></li>
-        <li><a href="javascript:void(0);">보험사설정</a></li>
-      </ul>
-    </div>
-    <div class="menu-group">
-      <a href="#" class="menu-head"><span class="ico ico-24"><img src="../www/img/icon/icon_notice_24.svg" alt=""></span><span>공지사항</span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></a>
-      <a href="#" class="menu-head"><span class="ico ico-24"><img src="../www/img/icon/icon_help_24.svg" alt=""></span><span>도움말</span><span class="ico ico-16"><img src="../www/img/icon/icon_chevron_right_16.svg" alt=""></span></a>
-    </div>
-  </nav>
 </div>
-<script src="../www/js/ui.js"></script>
 </body>
 </html>
