@@ -29,7 +29,7 @@
 | 파일 | [`img/loading/loading-logo-badge.gif`](img/loading/loading-logo-badge.gif) — [직접 링크](https://namiroo.github.io/kidi-aos-motion-mobile/img/loading/loading-logo-badge.gif) |
 | 형태 | 흰 원 배지 안에 심볼(M) + AOS 글자(정지) · 원 테두리 없음 · 원 바깥 투명 |
 | 화면 표시 크기 | **56 × 56** · 화면 정중앙 · 그림자 없음 · 배경 딤 없음 |
-| 하단 문구 | **불러오는 중** — 배지 아래 8px, 14px Medium · #4E5568 (스크린리더도 같은 문구를 읽음) |
+| 하단 문구 | **정보를 불러오는 중...** — 배지 아래 4px, Label 1/Medium(14·20) · #1A1B20 · 빛이 흐르는 효과(1.2초 반복) · Figma 2621:20444 |
 | 원본 크기 | 512 × 512 (고해상도 화면 대응) |
 | 모션 | M 획이 오른쪽 위 링 속으로 들어감 → 링이 스피너처럼 회전 → M 이 링에서 다시 뻗어 나옴 |
 | 주기 | 2.4초, 무한 반복 (GIF loop 0) |
@@ -40,11 +40,26 @@
 ```html
 <div class="loading" role="status">
   <img src="loading-logo-badge.gif" width="56" height="56" alt="">
-  <p class="loading-text">불러오는 중</p>
+  <p class="loading-text">정보를 불러오는 중...</p>
 </div>
 ```
 
-- 로딩 중에는 뒤 화면 터치를 막습니다. 배지 아래 "불러오는 중" 문구가 화면에 보이고 스크린리더도 같은 문구를 읽습니다.
+텍스트 빛 효과 (CSS)
+
+```css
+.loading-text {
+  color: #1a1b20;
+  background: linear-gradient(100deg, #1a1b20 0%, #1a1b20 38%, #c2c7d0 50%, #1a1b20 62%, #1a1b20 100%) 0 0 / 250% 100% no-repeat;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: text-shine 1.2s linear infinite;
+}
+@keyframes text-shine { from { background-position: 100% 0 } to { background-position: 0 0 } }
+@media (prefers-reduced-motion: reduce) {
+  .loading-text { animation: none; background: none; -webkit-text-fill-color: #1a1b20 }
+}
+```
+
+- 로딩 중에는 뒤 화면 터치를 막습니다. 배지 아래 "정보를 불러오는 중..." 문구가 화면에 보이고 스크린리더도 같은 문구를 읽습니다.
 - 같은 모션의 Lottie(JSON)·WebP·SVG 는 원본 폴더(`02. 디자인/motion/loading/output/`)에 있습니다. `img/loading/loading-mark-badge.gif`(심볼만) 와 `*.svg` 는 비교 단계에서 쓴 이전 파일입니다.
 
 ## 2. Skeleton 개발 가이드

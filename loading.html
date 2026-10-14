@@ -61,11 +61,15 @@
   .loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center}
   .loading-box{position:relative}
   .loading img{display:block;width:56px;height:56px}   /* 56×56, 그림자 없음 */
-  /* 하단 문구 — 배지는 화면 정중앙 그대로 두고 그 아래 8px 에 표시 (Label 1/Medium 14·20, gray/700)
-     배경 딤이 없어 뒤 콘텐츠와 겹칠 때도 읽히도록 흰 테두리 그림자를 얇게 둔다 */
-  .loading-text{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:8px;white-space:nowrap;
-    font-size:14px;line-height:20px;font-weight:500;color:#4e5568;
-    text-shadow:0 0 2px #fff,0 0 4px #fff,0 0 6px #fff}
+  /* 하단 문구 — Figma 2621:20444 : 배지 아래 4px, Label 1/Medium(14·20, 자간 1.45%), #1A1B20
+     빛이 왼쪽→오른쪽으로 흐르는 효과(텍스트 shimmer) — 1.2초, 로딩 애니메이션 한 사이클(2.4초)에 두 번 */
+  .loading-text{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;
+    font-size:14px;line-height:20px;font-weight:500;letter-spacing:.0145em;color:#1a1b20;
+    background:linear-gradient(100deg,#1a1b20 0%,#1a1b20 38%,#c2c7d0 50%,#1a1b20 62%,#1a1b20 100%) 0 0/250% 100% no-repeat;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:text-shine 1.2s linear infinite}
+  @keyframes text-shine{from{background-position:100% 0}to{background-position:0 0}}
+  @media (prefers-reduced-motion:reduce){.loading-text{animation:none;background:none;-webkit-text-fill-color:#1a1b20}}
 </style>
 </head>
 <body>
@@ -100,7 +104,7 @@
   <div class="loading" role="status" aria-live="polite">
     <div class="loading-box">
       <img src="img/loading/loading-logo-badge.gif?v=3" width="56" height="56" alt="">
-      <p class="loading-text">불러오는 중</p>
+      <p class="loading-text">정보를 불러오는 중...</p>
     </div>
   </div>
 </div>
