@@ -59,8 +59,13 @@
   /* ── 로딩 배지 — Figma 2594:22013 : 화면 가운데 56px 흰 원 안 심볼+AOS 애니메이션 (최종: loading-logo-badge.gif)
      배경 막 없이(투명) 계속 반복 재생. 로딩 중이므로 뒤 화면 터치는 막는다. */
   .loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center}
+  .loading-box{position:relative}
   .loading img{display:block;width:56px;height:56px}   /* 56×56, 그림자 없음 */
-  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  /* 하단 문구 — 배지는 화면 정중앙 그대로 두고 그 아래 8px 에 표시 (Label 1/Medium 14·20, gray/700)
+     배경 딤이 없어 뒤 콘텐츠와 겹칠 때도 읽히도록 흰 테두리 그림자를 얇게 둔다 */
+  .loading-text{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:8px;white-space:nowrap;
+    font-size:14px;line-height:20px;font-weight:500;color:#4e5568;
+    text-shadow:0 0 2px #fff,0 0 4px #fff,0 0 6px #fff}
 </style>
 </head>
 <body>
@@ -93,8 +98,10 @@
 
   <!-- 로딩 배지 — 끝나지 않고 계속 반복 -->
   <div class="loading" role="status" aria-live="polite">
-    <img src="img/loading/loading-logo-badge.gif?v=3" width="56" height="56" alt="">
-    <span class="sr">불러오는 중</span>
+    <div class="loading-box">
+      <img src="img/loading/loading-logo-badge.gif?v=3" width="56" height="56" alt="">
+      <p class="loading-text">불러오는 중</p>
+    </div>
   </div>
 </div>
 
