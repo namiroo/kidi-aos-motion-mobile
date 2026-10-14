@@ -9,7 +9,7 @@
 | 페이지 | 링크 | 내용 |
 |---|---|---|
 | 모바일 화면 | https://namiroo.github.io/kidi-aos-motion-mobile/ | 6개 화면을 실제 앱처럼 폰에서 확인 |
-| 로딩 애니메이션 | https://namiroo.github.io/kidi-aos-motion-mobile/loading.html | 접수조회 화면 가운데 60px 흰 원 배지 안에 로딩 로고 재생 (Figma 2594:22011·22013) — 심볼만 / 로고+AOS 전환, 검색·다시 보기로 재생 |
+| 로딩 애니메이션 | https://namiroo.github.io/kidi-aos-motion-mobile/loading.html | 최종안 — 접수조회 화면 가운데 60px 흰 원 배지 안 심볼 애니메이션이 끝나지 않고 계속 반복 (Figma 2594:22011). 파일: [img/loading/loading-mark-badge.gif](img/loading/loading-mark-badge.gif) |
 | Skeleton 개발 가이드 | https://namiroo.github.io/kidi-aos-motion-mobile/skeleton/ | 퍼블리셔·개발자 전달용 — 원칙·토큰·Primitive/Pattern 코드·대표 화면 4종(홈·목록·상세·폼)·상태 전환 데모. 실제로 쓸 CSS 는 [skeleton/css/skeleton.css](skeleton/css/skeleton.css) |
 | 모션 프리뷰 | https://namiroo.github.io/kidi-aos-motion-mobile/preview.html | 모션 아이콘 6종 확인 — 재생 속도(1× · 0.5× · 0.25×) · 키프레임만 보기 · 화면 적용 · 타이밍 표 |
 
@@ -40,7 +40,8 @@ img/*-sprite.webp     모션 스프라이트 시트
 loading.html          로딩 애니메이션 화면 적용 데모 (접수조회)
 skeleton/             Skeleton 개발 가이드 공유본 (index.html · css/skeleton.css · screens/ · www/=퍼블 CSS·아이콘 커밋본)
                       생성: 02. 디자인/motion/skeleton/_build_skeleton.py --pages
-img/loading/*.svg     로딩 로고 애니메이션 (배경 투명, 생성: 02. 디자인/motion/loading/_build_loading.py)
+img/loading/loading-mark-badge.gif   로딩 애니메이션 최종안 (512×512, 2.4초 무한 반복, 원 바깥 투명)
+img/loading/*.svg     이전 비교용 SVG (생성: 02. 디자인/motion/loading/_build_loading.py)
 robots.txt            검색 노출 차단
 ```
 
